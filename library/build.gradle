@@ -1,17 +1,11 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
-
-    dataBinding {
-        enabled = true
-    }
+    compileSdkVersion rootProject.ext.sdks.compileSdk
+    buildToolsVersion rootProject.ext.sdks.buildTools
 
     defaultConfig {
-        applicationId "extra.conductor.esafirm.com.conductorextra"
-
         minSdkVersion 16
         targetSdkVersion 25
 

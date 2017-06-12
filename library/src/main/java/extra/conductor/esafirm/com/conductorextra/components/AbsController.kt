@@ -1,5 +1,6 @@
 package extra.conductor.esafirm.com.conductorextra.components
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,9 +8,16 @@ import butterknife.ButterKnife
 import butterknife.Unbinder
 import com.bluelinelabs.conductor.Controller
 
-abstract class AbsController : Controller() {
+abstract class AbsController : Controller {
 
     lateinit var unbinder: Unbinder
+
+    /* --------------------------------------------------- */
+    /* > Constructor */
+    /* --------------------------------------------------- */
+
+    constructor()
+    constructor(bundle: Bundle) : super(bundle)
 
     /* --------------------------------------------------- */
     /* > To be overrode */
