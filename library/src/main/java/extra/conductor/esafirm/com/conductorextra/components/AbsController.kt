@@ -36,7 +36,7 @@ abstract class AbsController : Controller {
         onSetupComponent()
         return inflater.inflate(getLayoutResId(), container, false)
                 .also {
-                    unbinder = ButterKnife.bind(this, it)
+                    unbinder = ButterKnife.bind(this@AbsController, it)
                     onViewBound(it)
                 }
     }

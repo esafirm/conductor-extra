@@ -4,10 +4,11 @@ import android.support.v4.view.ViewCompat
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import com.bluelinelabs.conductor.changehandler.VerticalChangeHandler
 import com.squareup.picasso.Picasso
-import extra.conductor.esafirm.com.conductorextra.Routes
 import extra.conductor.esafirm.com.conductorextra.components.AbsController
+import extra.conductor.esafirm.com.conductorextra.transaction.Routes
 import java.util.*
 
 class MainController : AbsController() {
@@ -41,10 +42,23 @@ class MainController : AbsController() {
                             .into(it)
 
                     setOnClickListener {
-                        router.pushController(Routes.simpleTransaction(
-                                DetailController(selectedImage),
-                                VerticalChangeHandler()
-                        ))
+                        val withProps = random.nextBoolean()
+                        if (withProps) {
+                            router.pushController(Routes.simpleTransaction(
+                                    DetailWithPropsController(DetailProps("https://unsplash.it/200/300", "Hello world!")),
+                                    VerticalChangeHandler()
+                            ))
+                        } else {
+                            router.pushController(Routes.simpleTransaction(
+                                    DetailController(selectedImage),
+                                    VerticalChangeHandler()
+                            ))
+                        }
+                        Toast.makeText(
+                                applicationContext,
+                                "Show with props: $withProps",
+                                Toast.LENGTH_SHORT
+                        ).show()
                     }
 
                     post {

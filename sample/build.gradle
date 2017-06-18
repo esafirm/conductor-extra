@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 25
@@ -32,6 +33,10 @@ dependencies {
 
     /* For Demo */
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'nz.bradcampbell:paperparcel:2.0.1'
+    compile 'nz.bradcampbell:paperparcel-kotlin:2.0.1'
+    kapt 'nz.bradcampbell:paperparcel-compiler:2.0.1'
+    kapt 'com.jakewharton:butterknife-compiler:8.6.0'
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
