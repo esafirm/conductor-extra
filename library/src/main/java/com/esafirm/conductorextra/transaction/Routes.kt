@@ -1,4 +1,4 @@
-package extra.conductor.esafirm.com.conductorextra.transaction
+package com.conductor.esafirm.com.conductorextra.transaction
 
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.ControllerChangeHandler

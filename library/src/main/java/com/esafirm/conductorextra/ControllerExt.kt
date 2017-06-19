@@ -1,10 +1,10 @@
-package extra.conductor.esafirm.com.conductorextra
+package com.conductor.esafirm.com.conductorextra
 
 import android.view.View
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
-import extra.conductor.esafirm.com.conductorextra.transaction.Routes
+import com.conductor.esafirm.com.conductorextra.transaction.Routes
 
 fun Controller.callWhenReady(onReady: Controller.() -> Unit) =
         addLifecycleListener(object : Controller.LifecycleListener() {

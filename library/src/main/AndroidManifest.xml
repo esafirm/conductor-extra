@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="extra.conductor.esafirm.com.conductorextra">
+          package="com.conductor.esafirm.com.conductorextra">
 
     <application
         android:allowBackup="true"

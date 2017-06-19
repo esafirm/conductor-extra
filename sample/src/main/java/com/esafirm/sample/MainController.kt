@@ -1,4 +1,4 @@
-package extra.conductor.esafirm.com.sample
+package com.conductor.esafirm.com.sample
 
 import android.support.v4.view.ViewCompat
 import android.view.View
@@ -9,9 +9,9 @@ import butterknife.BindView
 import butterknife.OnClick
 import com.bluelinelabs.conductor.changehandler.VerticalChangeHandler
 import com.squareup.picasso.Picasso
-import extra.conductor.esafirm.com.conductorextra.components.AbsController
-import extra.conductor.esafirm.com.conductorextra.showDialog
-import extra.conductor.esafirm.com.conductorextra.transaction.Routes
+import com.conductor.esafirm.com.conductorextra.components.AbsController
+import com.conductor.esafirm.com.conductorextra.showDialog
+import com.conductor.esafirm.com.conductorextra.transaction.Routes
 import java.util.*
 
 class MainController : AbsController() {

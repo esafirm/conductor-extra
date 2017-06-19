@@ -1,4 +1,4 @@
-package extra.conductor.esafirm.com.conductorextra.components
+package com.conductor.esafirm.com.conductorextra.components
 
 import android.os.Bundle
 import android.view.LayoutInflater

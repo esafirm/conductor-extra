@@ -1,4 +1,4 @@
-package extra.conductor.esafirm.com.sample
+package com.conductor.esafirm.com.sample
 
 import android.os.Bundle
 import android.view.View
@@ -6,9 +6,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
 import com.squareup.picasso.Picasso
-import extra.conductor.esafirm.com.conductorextra.components.AbsController
-import extra.conductor.esafirm.com.conductorextra.getProps
-import extra.conductor.esafirm.com.conductorextra.toBundle
+import com.conductor.esafirm.com.conductorextra.components.AbsController
+import com.conductor.esafirm.com.conductorextra.getProps
+import com.conductor.esafirm.com.conductorextra.toBundle
 
 class DetailWithPropsController(bundle: Bundle) : AbsController(bundle) {
 

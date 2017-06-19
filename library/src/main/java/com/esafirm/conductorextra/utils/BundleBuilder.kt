@@ -1,4 +1,4 @@
-package extra.conductor.esafirm.com.conductorextra.utils
+package com.conductor.esafirm.com.conductorextra.utils
 
 import android.os.Bundle
 import android.os.Parcelable

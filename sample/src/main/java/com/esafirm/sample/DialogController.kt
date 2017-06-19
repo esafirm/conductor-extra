@@ -1,10 +1,10 @@
-package extra.conductor.esafirm.com.sample
+package com.conductor.esafirm.com.sample
 
 import android.view.View
 import android.widget.ImageView
 import butterknife.BindView
 import com.squareup.picasso.Picasso
-import extra.conductor.esafirm.com.conductorextra.components.AbsDialogController
+import com.conductor.esafirm.com.conductorextra.components.AbsDialogController
 
 class DialogController : AbsDialogController() {
 
