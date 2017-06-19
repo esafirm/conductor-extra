@@ -36,9 +36,13 @@ abstract class AbsController : Controller {
         onSetupComponent()
         return inflater.inflate(getLayoutResId(), container, false)
                 .also {
-                    unbinder = ButterKnife.bind(this@AbsController, it)
-                    onViewBound(it)
+                    postCreateView(it)
                 }
+    }
+
+    protected fun postCreateView(view: View) {
+        unbinder = ButterKnife.bind(this@AbsController, view)
+        onViewBound(view)
     }
 
     override fun onDestroyView(view: View) {

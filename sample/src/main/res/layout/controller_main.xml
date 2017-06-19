@@ -1,54 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
-    android:orientation="vertical"
     tools:context="extra.conductor.esafirm.com.sample.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/main_btn_show_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show Dialog Controller"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
 
         <ImageView
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_weight="1"/>
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_weight="1"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <!-- ============================================= -->
+    <!-- Dialog Container -->
+    <!-- ============================================= -->
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_weight="1"/>
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_weight="1"/>
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
-
-    <ImageView
+    <com.bluelinelabs.conductor.ChangeHandlerFrameLayout
+        android:id="@+id/main_container_dialog"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-</LinearLayout>
+</FrameLayout>

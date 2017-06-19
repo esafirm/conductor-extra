@@ -3,6 +3,8 @@ package extra.conductor.esafirm.com.conductorextra
 import android.view.View
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.Router
+import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
+import extra.conductor.esafirm.com.conductorextra.transaction.Routes
 
 fun Controller.callWhenReady(onReady: Controller.() -> Unit) =
         addLifecycleListener(object : Controller.LifecycleListener() {
@@ -21,4 +23,12 @@ fun Controller.popCurrentController() {
     if (router.backstackSize > 0) {
         router.popCurrentController()
     }
+}
+
+fun Controller.showDialog(childRouter: Router, controller: Controller) {
+    childRouter.setPopsLastView(true)
+            .pushController(Routes.simpleTransaction(
+                    controller,
+                    FadeChangeHandler()
+            ))
 }

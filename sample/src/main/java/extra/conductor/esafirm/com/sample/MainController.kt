@@ -5,13 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import butterknife.BindView
+import butterknife.OnClick
 import com.bluelinelabs.conductor.changehandler.VerticalChangeHandler
 import com.squareup.picasso.Picasso
 import extra.conductor.esafirm.com.conductorextra.components.AbsController
+import extra.conductor.esafirm.com.conductorextra.showDialog
 import extra.conductor.esafirm.com.conductorextra.transaction.Routes
 import java.util.*
 
 class MainController : AbsController() {
+
+    @BindView(R.id.main_container_dialog) lateinit var container: ViewGroup
 
     init {
         retainViewMode = RetainViewMode.RETAIN_DETACH
@@ -72,5 +77,10 @@ class MainController : AbsController() {
                 }
             }
         }
+    }
+
+    @OnClick(R.id.main_btn_show_dialog)
+    fun onShowDialogClick() {
+        showDialog(getChildRouter(container), DialogController())
     }
 }
