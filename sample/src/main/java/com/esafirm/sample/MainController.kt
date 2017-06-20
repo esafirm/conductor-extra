@@ -83,4 +83,12 @@ class MainController : AbsController() {
     fun onShowDialogClick() {
         showDialog(getChildRouter(container), DialogController())
     }
+
+    @OnClick(R.id.main_btn_show_data_binding)
+    fun onShowDataBinding(){
+        router.pushController(Routes.simpleTransaction(
+                DetailControllerDataBinding(),
+                VerticalChangeHandler()
+        ))
+    }
 }

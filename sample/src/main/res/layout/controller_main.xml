@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.conductor.esafirm.com.sample.com.esafirm.sample.MainActivity">
+    tools:context="com.esafirm.sample.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,6 +17,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Show Dialog Controller"/>
+
+        <Button
+            android:id="@+id/main_btn_show_data_binding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show Data Binding Controller"/>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -1,1 +1,1 @@
-include ':conductor-extra', ':sample', ':conductor-extra-butterknife'
+include ':conductor-extra', ':sample', ':conductor-extra-butterknife', ':conductor-extra-databinding'
