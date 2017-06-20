@@ -1,4 +1,4 @@
-package com.conductor.esafirm.com.conductorextra
+package com.esafirm.conductorextra
 
 import com.bluelinelabs.conductor.Router
 

@@ -1,11 +1,11 @@
-package com.conductor.esafirm.com.sample
+package com.esafirm.sample
 
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import com.esafirm.conductorextra.components.AbsController
+import com.esafirm.conductorextra.utils.BundleBuilder
 import com.squareup.picasso.Picasso
-import com.conductor.esafirm.com.conductorextra.components.AbsController
-import com.conductor.esafirm.com.conductorextra.utils.BundleBuilder
 
 class DetailController(bundle: Bundle) : AbsController(bundle) {
 

@@ -7,7 +7,7 @@ android {
     buildToolsVersion "25.0.3"
 
     defaultConfig {
-        applicationId "extra.conductor.esafirm.com.sample"
+        applicationId "esafirm.com.sample"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1

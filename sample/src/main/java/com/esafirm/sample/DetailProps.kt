@@ -1,4 +1,4 @@
-package com.conductor.esafirm.com.sample
+package com.esafirm.sample
 
 import paperparcel.PaperParcel
 import paperparcel.PaperParcelable

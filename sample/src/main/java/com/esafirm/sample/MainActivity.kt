@@ -1,8 +1,8 @@
-package com.conductor.esafirm.com.sample
+package com.esafirm.sample
 
 import com.bluelinelabs.conductor.Controller
 
-import com.conductor.esafirm.com.conductorextra.components.ControllerActivity
+import com.esafirm.conductorextra.components.ControllerActivity
 
 class MainActivity : ControllerActivity() {
 

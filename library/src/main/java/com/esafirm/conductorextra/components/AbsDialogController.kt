@@ -1,10 +1,10 @@
-package com.conductor.esafirm.com.conductorextra.components
+package com.esafirm.conductorextra.components
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.conductor.esafirm.com.conductorextra.R
-import com.conductor.esafirm.com.conductorextra.popCurrentController
+import com.esafirm.conductorextra.R
+import com.esafirm.conductorextra.popCurrentController
 
 abstract class AbsDialogController : AbsController() {
 
