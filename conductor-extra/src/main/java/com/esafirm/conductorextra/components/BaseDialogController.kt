@@ -1,12 +1,24 @@
 package com.esafirm.conductorextra.components
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.esafirm.conductorextra.R
 import com.esafirm.conductorextra.popCurrentController
 
-abstract class AbsDialogController : AbsController() {
+abstract class BaseDialogController<BindingResult> : BaseController<BindingResult> {
+
+    /* --------------------------------------------------- */
+    /* > Constructor */
+    /* --------------------------------------------------- */
+
+    constructor()
+    constructor(bundle: Bundle) : super(bundle)
+
+    /* --------------------------------------------------- */
+    /* > Methods */
+    /* --------------------------------------------------- */
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         onSetupComponent()
@@ -22,7 +34,7 @@ abstract class AbsDialogController : AbsController() {
 
         overlay.addView(view)
         return overlay.also {
-            postCreateView(it)
+            bindView(it)
         }
     }
 

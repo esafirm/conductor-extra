@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
-import com.esafirm.conductorextra.components.AbsController
+import com.esafirm.conductorextra.butterknife.AbsController
 import com.esafirm.conductorextra.getProps
 import com.esafirm.conductorextra.toBundle
 import com.squareup.picasso.Picasso
@@ -19,7 +19,7 @@ class DetailWithPropsController(bundle: Bundle) : AbsController(bundle) {
 
     override fun getLayoutResId(): Int = R.layout.controller_detail_with_props
 
-    override fun onViewBound(view: View) {
+    override fun onViewBound(bindingResult: View) {
         val props = getProps<DetailProps>()
 
         Picasso.with(applicationContext)

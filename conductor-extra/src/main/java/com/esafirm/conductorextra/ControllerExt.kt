@@ -32,3 +32,29 @@ fun Controller.showDialog(childRouter: Router, controller: Controller) {
                     FadeChangeHandler()
             ))
 }
+
+/* --------------------------------------------------- */
+/* > Lifecycle */
+/* --------------------------------------------------- */
+
+typealias Action = Controller.() -> Unit
+fun Controller.addLifecycleCallback(
+        onPreDestroy: Action? = null,
+        onPostAttach: Action? = null,
+        onPreDetach: Action? = null
+) {
+    addLifecycleListener(object : Controller.LifecycleListener() {
+
+        override fun postAttach(controller: Controller, view: View) {
+            onPostAttach?.run { invoke(controller) }
+        }
+
+        override fun preDetach(controller: Controller, view: View) {
+            onPreDetach?.run { invoke(controller) }
+        }
+
+        override fun preDestroy(controller: Controller) {
+            onPreDestroy?.run { invoke(controller) }
+        }
+    })
+}

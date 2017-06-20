@@ -3,7 +3,7 @@ package com.esafirm.sample
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
-import com.esafirm.conductorextra.components.AbsController
+import com.esafirm.conductorextra.butterknife.AbsController
 import com.esafirm.conductorextra.utils.BundleBuilder
 import com.squareup.picasso.Picasso
 
@@ -19,8 +19,8 @@ class DetailController(bundle: Bundle) : AbsController(bundle) {
 
     override fun getLayoutResId(): Int = R.layout.controller_detail
 
-    override fun onViewBound(view: View) {
-        val imgDetail by lazy { view.findViewById(R.id.detail_img) as ImageView }
+    override fun onViewBound(bindingResult: View) {
+        val imgDetail by lazy { bindingResult.findViewById(R.id.detail_img) as ImageView }
         Picasso.with(applicationContext)
                 .load(args.getString(ARG_IMAGE))
                 .into(imgDetail)

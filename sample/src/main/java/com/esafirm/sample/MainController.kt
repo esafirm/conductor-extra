@@ -8,7 +8,7 @@ import android.widget.Toast
 import butterknife.BindView
 import butterknife.OnClick
 import com.bluelinelabs.conductor.changehandler.VerticalChangeHandler
-import com.esafirm.conductorextra.components.AbsController
+import com.esafirm.conductorextra.butterknife.AbsController
 import com.esafirm.conductorextra.showDialog
 import com.esafirm.conductorextra.transaction.Routes
 import com.squareup.picasso.Picasso
@@ -24,7 +24,7 @@ class MainController : AbsController() {
 
     override fun getLayoutResId(): Int = R.layout.controller_main
 
-    override fun onViewBound(view: View) {
+    override fun onViewBound(bindingResult: View) {
 
         val images = listOf(
                 "https://unsplash.it/200/300",
@@ -33,7 +33,7 @@ class MainController : AbsController() {
         )
 
         val random by lazy { Random() }
-        val viewGroup = view as ViewGroup
+        val viewGroup = bindingResult as ViewGroup
 
         viewGroup.applyRecursively {
             when (it) {

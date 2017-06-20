@@ -3,8 +3,8 @@ package com.esafirm.sample
 import android.view.View
 import android.widget.ImageView
 import butterknife.BindView
+import com.esafirm.conductorextra.butterknife.AbsDialogController
 import com.squareup.picasso.Picasso
-import com.esafirm.conductorextra.components.AbsDialogController
 
 class DialogController : AbsDialogController() {
 
@@ -12,7 +12,7 @@ class DialogController : AbsDialogController() {
 
     override fun getLayoutResId(): Int = R.layout.dialog_ontroller
 
-    override fun onViewBound(view: View) {
+    override fun onViewBound(bindingResult: View) {
         Picasso.with(applicationContext)
                 .load("https://unsplash.it/200/300")
                 .into(imageView)

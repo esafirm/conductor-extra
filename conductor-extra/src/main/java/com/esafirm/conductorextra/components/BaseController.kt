@@ -4,13 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import com.bluelinelabs.conductor.Controller
 
-abstract class AbsController : Controller {
-
-    lateinit var unbinder: Unbinder
+abstract class  BaseController<BindingResult> : Controller {
 
     /* --------------------------------------------------- */
     /* > Constructor */
@@ -24,7 +20,8 @@ abstract class AbsController : Controller {
     /* --------------------------------------------------- */
 
     abstract fun getLayoutResId(): Int
-    abstract fun onViewBound(view: View)
+    abstract fun onViewBound(bindingResult: BindingResult)
+    abstract fun getBinder(): ControllerBinder<BindingResult>
 
     fun onSetupComponent() {}
 
@@ -36,17 +33,11 @@ abstract class AbsController : Controller {
         onSetupComponent()
         return inflater.inflate(getLayoutResId(), container, false)
                 .also {
-                    postCreateView(it)
+                    bindView(it)
                 }
     }
 
-    protected fun postCreateView(view: View) {
-        unbinder = ButterKnife.bind(this@AbsController, view)
-        onViewBound(view)
-    }
-
-    override fun onDestroyView(view: View) {
-        unbinder.unbind()
-        super.onDestroyView(view)
+    protected fun bindView(view: View) {
+        onViewBound(getBinder().bind(view))
     }
 }
