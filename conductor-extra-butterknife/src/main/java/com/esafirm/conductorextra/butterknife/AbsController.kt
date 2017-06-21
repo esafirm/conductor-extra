@@ -18,9 +18,5 @@ abstract class AbsController : BaseController<View> {
     /* > Binder */
     /* --------------------------------------------------- */
 
-    override fun getBinder(): ControllerBinder<View> = object : ControllerBinder<View> {
-        override fun bind(view: View): View {
-            return ButterknifeBinder.bind(this@AbsController, view, this@AbsController)
-        }
-    }
+    override fun getBinder(): ControllerBinder<View> = ButterknifeBinder.createBinder(this)
 }

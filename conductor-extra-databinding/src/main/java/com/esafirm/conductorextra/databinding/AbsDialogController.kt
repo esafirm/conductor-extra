@@ -1,11 +1,11 @@
-package com.esafirm.conductorextra.butterknife
+package com.esafirm.conductorextra.databinding
 
+import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.view.View
 import com.esafirm.conductorextra.components.BaseDialogController
 import com.esafirm.conductorextra.components.ControllerBinder
 
-abstract class AbsDialogController : BaseDialogController<View> {
+abstract class AbsDialogController<Binding : ViewDataBinding> : BaseDialogController<Binding> {
 
     /* --------------------------------------------------- */
     /* > Constructor */
@@ -15,8 +15,8 @@ abstract class AbsDialogController : BaseDialogController<View> {
     constructor(bundle: Bundle) : super(bundle)
 
     /* --------------------------------------------------- */
-    /* > View Binder */
+    /* > View Binding */
     /* --------------------------------------------------- */
 
-    override fun getBinder(): ControllerBinder<View> = ButterknifeBinder.createBinder(this)
+    override fun getBinder(): ControllerBinder<Binding> = DataBindingBinder.createBinder()
 }
