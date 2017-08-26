@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.esafirm.conductorextra.components.BaseController
 import com.esafirm.conductorextra.components.ControllerBinder
 
-abstract class AbsController<Binding : ViewDataBinding> : BaseController<Binding> {
+abstract class BinderController<Binding : ViewDataBinding> : BaseController<Binding> {
 
     /* --------------------------------------------------- */
     /* > Constructor */

@@ -3,10 +3,10 @@ package com.esafirm.sample
 import android.view.View
 import android.widget.ImageView
 import butterknife.BindView
-import com.esafirm.conductorextra.butterknife.AbsDialogController
+import com.esafirm.conductorextra.butterknife.BinderDialogController
 import com.squareup.picasso.Picasso
 
-class DialogController : AbsDialogController() {
+class DialogController : BinderDialogController() {
 
     @BindView(R.id.dialog_img) lateinit var imageView: ImageView
 

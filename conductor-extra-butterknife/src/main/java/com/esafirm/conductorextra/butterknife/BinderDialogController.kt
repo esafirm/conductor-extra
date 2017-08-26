@@ -2,10 +2,10 @@ package com.esafirm.conductorextra.butterknife
 
 import android.os.Bundle
 import android.view.View
-import com.esafirm.conductorextra.components.BaseController
+import com.esafirm.conductorextra.components.BaseDialogController
 import com.esafirm.conductorextra.components.ControllerBinder
 
-abstract class AbsController : BaseController<View> {
+abstract class BinderDialogController : BaseDialogController<View> {
 
     /* --------------------------------------------------- */
     /* > Constructor */
@@ -15,7 +15,7 @@ abstract class AbsController : BaseController<View> {
     constructor(bundle: Bundle) : super(bundle)
 
     /* --------------------------------------------------- */
-    /* > Binder */
+    /* > View Binder */
     /* --------------------------------------------------- */
 
     override fun getBinder(): ControllerBinder<View> = ButterknifeBinder.createBinder(this)

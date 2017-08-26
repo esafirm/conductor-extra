@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.esafirm.conductorextra.components.BaseDialogController
 import com.esafirm.conductorextra.components.ControllerBinder
 
-abstract class AbsDialogController<Binding : ViewDataBinding> : BaseDialogController<Binding> {
+abstract class BinderDialogController<Binding : ViewDataBinding> : BaseDialogController<Binding> {
 
     /* --------------------------------------------------- */
     /* > Constructor */
