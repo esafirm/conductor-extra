@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bluelinelabs.conductor.Controller
 
-abstract class  BaseController<BindingResult> : Controller {
+abstract class BaseController<BindingResult> : Controller {
 
     /* --------------------------------------------------- */
     /* > Constructor */
@@ -23,7 +23,7 @@ abstract class  BaseController<BindingResult> : Controller {
     abstract fun onViewBound(bindingResult: BindingResult)
     abstract fun getBinder(): ControllerBinder<BindingResult>
 
-    fun onSetupComponent() {}
+    open fun onSetupComponent() {}
 
     /* --------------------------------------------------- */
     /* > Lifecycle */
@@ -37,7 +37,7 @@ abstract class  BaseController<BindingResult> : Controller {
                 }
     }
 
-    protected fun bindView(view: View) {
+    open protected fun bindView(view: View) {
         onViewBound(getBinder().bind(view))
     }
 }
