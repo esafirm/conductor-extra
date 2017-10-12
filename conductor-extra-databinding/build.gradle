@@ -9,7 +9,8 @@ android {
 
     defaultConfig {
         minSdkVersion rootProject.ext.sdks.minSdk
-        targetSdkVersion 25
+        targetSdkVersion rootProject.ext.sdks.targetSdk
+
         versionCode 1
         versionName "1.0"
     }

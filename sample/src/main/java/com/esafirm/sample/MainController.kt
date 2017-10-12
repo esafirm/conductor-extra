@@ -8,13 +8,13 @@ import android.widget.Toast
 import butterknife.BindView
 import butterknife.OnClick
 import com.bluelinelabs.conductor.changehandler.VerticalChangeHandler
-import com.esafirm.conductorextra.butterknife.AbsController
+import com.esafirm.conductorextra.butterknife.BinderController
 import com.esafirm.conductorextra.showDialog
 import com.esafirm.conductorextra.transaction.Routes
 import com.squareup.picasso.Picasso
 import java.util.*
 
-class MainController : AbsController() {
+class MainController : BinderController() {
 
     @BindView(R.id.main_container_dialog) lateinit var container: ViewGroup
 
@@ -85,7 +85,7 @@ class MainController : AbsController() {
     }
 
     @OnClick(R.id.main_btn_show_data_binding)
-    fun onShowDataBinding(){
+    fun onShowDataBinding() {
         router.pushController(Routes.simpleTransaction(
                 DetailControllerDataBinding(),
                 VerticalChangeHandler()

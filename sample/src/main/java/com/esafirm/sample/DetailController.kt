@@ -3,11 +3,11 @@ package com.esafirm.sample
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
-import com.esafirm.conductorextra.butterknife.AbsController
+import com.esafirm.conductorextra.butterknife.BinderController
 import com.esafirm.conductorextra.utils.BundleBuilder
 import com.squareup.picasso.Picasso
 
-class DetailController(bundle: Bundle) : AbsController(bundle) {
+class DetailController(bundle: Bundle) : BinderController(bundle) {
 
     companion object {
         const val ARG_IMAGE = "DetailController.Image"

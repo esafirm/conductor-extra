@@ -5,12 +5,12 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
-import com.esafirm.conductorextra.butterknife.AbsController
+import com.esafirm.conductorextra.butterknife.BinderController
 import com.esafirm.conductorextra.getProps
 import com.esafirm.conductorextra.toBundle
 import com.squareup.picasso.Picasso
 
-class DetailWithPropsController(bundle: Bundle) : AbsController(bundle) {
+class DetailWithPropsController(bundle: Bundle) : BinderController(bundle) {
 
     constructor(props: DetailProps) : this(props.toBundle())
 
