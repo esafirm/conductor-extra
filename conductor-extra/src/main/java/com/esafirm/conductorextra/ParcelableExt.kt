@@ -7,6 +7,6 @@ import com.esafirm.conductorextra.utils.BundleBuilder
 
 const val ARG_PROPS: String = "Argument.Props"
 
-fun Parcelable.toBundle(): Bundle = BundleBuilder().putParcelable(ARG_PROPS, this).build()
+fun Parcelable.toPropsBundle(): Bundle = BundleBuilder().putParcelable(ARG_PROPS, this).build()
 
-inline fun <reified T : Parcelable> Controller.getProps(): T = args.getParcelable<T>(ARG_PROPS)
+inline fun <reified T : Parcelable> Controller.getProps(): T = args.getParcelable(ARG_PROPS)

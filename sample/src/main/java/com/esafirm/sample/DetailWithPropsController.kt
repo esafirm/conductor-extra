@@ -7,12 +7,12 @@ import android.widget.TextView
 import butterknife.BindView
 import com.esafirm.conductorextra.butterknife.BinderController
 import com.esafirm.conductorextra.getProps
-import com.esafirm.conductorextra.toBundle
+import com.esafirm.conductorextra.toPropsBundle
 import com.squareup.picasso.Picasso
 
 class DetailWithPropsController(bundle: Bundle) : BinderController(bundle) {
 
-    constructor(props: DetailProps) : this(props.toBundle())
+    constructor(props: DetailProps) : this(props.toPropsBundle())
 
     @BindView(R.id.detail_img) lateinit var imageView: ImageView
     @BindView(R.id.detail_txt) lateinit var txtDetail: TextView

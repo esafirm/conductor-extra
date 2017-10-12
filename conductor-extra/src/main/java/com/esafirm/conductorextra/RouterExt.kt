@@ -1,10 +1,13 @@
 package com.esafirm.conductorextra
 
+import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.Router
 
-fun Router.handleBackWithMinBackStack(minBackStack: Int): Boolean {
-    return isHaveMoreBackStack(this, minBackStack) && handleBack()
-}
+fun Router.getTopController(): Controller =
+        backstack[backstackSize - 1].controller()
+
+fun Router.handleBackWithMinBackStack(minBackStack: Int): Boolean =
+        isHaveMoreBackStack(this, minBackStack) && handleBack()
 
 private fun isHaveMoreBackStack(router: Router, minBackStack: Int): Boolean {
     if (router.backstackSize > minBackStack) {

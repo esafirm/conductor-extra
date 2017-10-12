@@ -14,8 +14,7 @@ fun Controller.callWhenReady(onReady: Controller.() -> Unit) =
             }
         })
 
-fun Controller.getTopController(router: Router): Controller =
-        router.backstack[router.backstackSize - 1].controller()
+fun Controller.getTopController(): Controller = router.getTopController()
 
 fun Controller.finishActivity() = activity?.finish()
 
