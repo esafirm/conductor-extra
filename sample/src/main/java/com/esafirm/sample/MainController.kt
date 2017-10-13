@@ -1,5 +1,6 @@
 package com.esafirm.sample
 
+import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.view.View
 import android.view.ViewGroup
@@ -24,8 +25,7 @@ class MainController : BinderController() {
 
     override fun getLayoutResId(): Int = R.layout.controller_main
 
-    override fun onViewBound(bindingResult: View) {
-
+    override fun onViewBound(bindingResult: View, savedState: Bundle?) {
         val images = listOf(
                 "https://unsplash.it/200/300",
                 "https://unsplash.it/300/300",
@@ -77,6 +77,14 @@ class MainController : BinderController() {
                 }
             }
         }
+    }
+
+    @OnClick(R.id.main_btn_show_fetching)
+    fun onShowFetching(){
+        router.pushController(Routes.simpleTransaction(
+                ConfigChangeController(),
+                VerticalChangeHandler()
+        ))
     }
 
     @OnClick(R.id.main_btn_show_dialog)

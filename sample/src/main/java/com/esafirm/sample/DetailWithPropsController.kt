@@ -19,7 +19,7 @@ class DetailWithPropsController(bundle: Bundle) : BinderController(bundle) {
 
     override fun getLayoutResId(): Int = R.layout.controller_detail_with_props
 
-    override fun onViewBound(bindingResult: View) {
+    override fun onViewBound(bindingResult: View, savedState: Bundle?) {
         val props = getProps<DetailProps>()
 
         Picasso.with(applicationContext)

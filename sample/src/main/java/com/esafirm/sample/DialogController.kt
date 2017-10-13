@@ -1,5 +1,6 @@
 package com.esafirm.sample
 
+import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import butterknife.BindView
@@ -12,7 +13,7 @@ class DialogController : BinderDialogController() {
 
     override fun getLayoutResId(): Int = R.layout.dialog_ontroller
 
-    override fun onViewBound(bindingResult: View) {
+    override fun onViewBound(bindingResult: View, savedState: Bundle?) {
         Picasso.with(applicationContext)
                 .load("https://unsplash.it/200/300")
                 .into(imageView)

@@ -24,6 +24,12 @@
             android:layout_height="wrap_content"
             android:text="Show Data Binding Controller"/>
 
+        <Button
+            android:id="@+id/main_btn_show_fetching"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Config Change in Controller"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bluelinelabs.conductor.Controller
+import com.esafirm.conductorextra.addLifecycleCallback
+import com.esafirm.conductorextra.markSavedState
 
 abstract class BaseController<BindingResult> : Controller {
 
@@ -15,12 +17,18 @@ abstract class BaseController<BindingResult> : Controller {
     constructor()
     constructor(bundle: Bundle) : super(bundle)
 
+    init {
+        addLifecycleCallback(onSaveViewState = { _, outState, _ ->
+            outState.markSavedState()
+        })
+    }
+
     /* --------------------------------------------------- */
     /* > To be overrode */
     /* --------------------------------------------------- */
 
     abstract fun getLayoutResId(): Int
-    abstract fun onViewBound(bindingResult: BindingResult)
+    abstract fun onViewBound(bindingResult: BindingResult, savedState: Bundle?)
     abstract fun getBinder(): ControllerBinder<BindingResult>
 
     open fun onSetupComponent() {}
@@ -38,6 +46,13 @@ abstract class BaseController<BindingResult> : Controller {
     }
 
     open protected fun bindView(view: View) {
-        onViewBound(getBinder().bind(view))
+        var savedInstanceState: Bundle? = null
+        addLifecycleCallback(
+                onRestoreViewState = { _, state, _ -> savedInstanceState = state },
+                onPreAttach = { _, _, remover ->
+                    onViewBound(getBinder().bind(view), savedInstanceState)
+                    remover()
+                }
+        )
     }
 }

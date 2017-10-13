@@ -19,7 +19,7 @@ class DetailController(bundle: Bundle) : BinderController(bundle) {
 
     override fun getLayoutResId(): Int = R.layout.controller_detail
 
-    override fun onViewBound(bindingResult: View) {
+    override fun onViewBound(bindingResult: View, savedState: Bundle?) {
         val imgDetail by lazy { bindingResult.findViewById(R.id.detail_img) as ImageView }
         Picasso.with(applicationContext)
                 .load(args.getString(ARG_IMAGE))

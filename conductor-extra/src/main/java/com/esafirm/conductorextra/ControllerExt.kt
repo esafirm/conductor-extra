@@ -37,11 +37,16 @@ fun Controller.showDialog(childRouter: Router, controller: Controller) {
 /* > Lifecycle */
 /* --------------------------------------------------- */
 
-typealias Callback<P1, P2> = (P1, P2) -> Unit
+typealias LifecycleRemover = () -> Unit
+typealias Callback<P1, P2> = (P1, P2, LifecycleRemover) -> Unit
+typealias SingleCallback<P1> = (P1, LifecycleRemover) -> Unit
 
 fun Controller.addLifecycleCallback(
-        onPreDestroy: ((Controller) -> Unit)? = null,
-        onPostDestroy: ((Controller) -> Unit)? = null,
+        onPreDestroy: SingleCallback<Controller>? = null,
+        onPostDestroy: SingleCallback<Controller>? = null,
+        onPreDestroyView: Callback<Controller, View>? = null,
+        onPostDestroyView: SingleCallback<Controller>? = null,
+        onPreAttach: Callback<Controller, View>? = null,
         onPostAttach: Callback<Controller, View>? = null,
         onPostDetach: Callback<Controller, View>? = null,
         onPreDetach: Callback<Controller, View>? = null,
@@ -49,43 +54,61 @@ fun Controller.addLifecycleCallback(
         onRestoreInstanceState: Callback<Controller, Bundle>? = null,
         onSaveViewState: Callback<Controller, Bundle>? = null,
         onRestoreViewState: Callback<Controller, Bundle>? = null
-) {
-    addLifecycleListener(object : Controller.LifecycleListener() {
+): Controller.LifecycleListener {
+
+    val listener = object : Controller.LifecycleListener() {
+
+        private val remover: LifecycleRemover = { removeLifecycleListener(this) }
 
         override fun onSaveViewState(controller: Controller, outState: Bundle) {
-            onSaveViewState?.invoke(controller, outState)
+            onSaveViewState?.invoke(controller, outState, remover)
         }
 
         override fun onRestoreViewState(controller: Controller, savedViewState: Bundle) {
-            onRestoreViewState?.invoke(controller, savedViewState)
+            onRestoreViewState?.invoke(controller, savedViewState, remover)
         }
 
         override fun onRestoreInstanceState(controller: Controller, savedInstanceState: Bundle) {
-            onRestoreInstanceState?.invoke(controller, savedInstanceState)
+            onRestoreInstanceState?.invoke(controller, savedInstanceState, remover)
         }
 
         override fun onSaveInstanceState(controller: Controller, outState: Bundle) {
-            onSaveInstanceState?.invoke(controller, outState)
+            onSaveInstanceState?.invoke(controller, outState, remover)
+        }
+
+        override fun preAttach(controller: Controller, view: View) {
+            onPreAttach?.invoke(controller, view, remover)
         }
 
         override fun postAttach(controller: Controller, view: View) {
-            onPostAttach?.invoke(controller, view)
+            onPostAttach?.invoke(controller, view, remover)
         }
 
         override fun preDetach(controller: Controller, view: View) {
-            onPreDetach?.invoke(controller, view)
+            onPreDetach?.invoke(controller, view, remover)
         }
 
         override fun postDetach(controller: Controller, view: View) {
-            onPostDetach?.invoke(controller, view)
+            onPostDetach?.invoke(controller, view, remover)
         }
 
         override fun preDestroy(controller: Controller) {
-            onPreDestroy?.invoke(controller)
+            onPreDestroy?.invoke(controller, remover)
         }
 
         override fun postDestroy(controller: Controller) {
-            onPostDestroy?.invoke(controller)
+            onPostDestroy?.invoke(controller, remover)
         }
-    })
+
+        override fun preDestroyView(controller: Controller, view: View) {
+            onPreDestroyView?.invoke(controller, view, remover)
+        }
+
+        override fun postDestroyView(controller: Controller) {
+            onPostDestroyView?.invoke(controller, remover)
+        }
+    }
+    addLifecycleListener(listener)
+
+    return listener
 }
