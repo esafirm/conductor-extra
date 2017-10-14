@@ -79,8 +79,16 @@ class MainController : BinderController() {
         }
     }
 
+    @OnClick(R.id.main_btn_reset_property)
+    fun onShowResetProperty() {
+        router.pushController(Routes.simpleTransaction(
+                ResetPropertyController(),
+                VerticalChangeHandler()
+        ))
+    }
+
     @OnClick(R.id.main_btn_show_fetching)
-    fun onShowFetching(){
+    fun onShowFetching() {
         router.pushController(Routes.simpleTransaction(
                 ConfigChangeController(),
                 VerticalChangeHandler()
