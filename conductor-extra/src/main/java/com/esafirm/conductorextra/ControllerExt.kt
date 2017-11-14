@@ -42,23 +42,41 @@ typealias Callback<P1, P2> = (P1, P2, LifecycleRemover) -> Unit
 typealias SingleCallback<P1> = (P1, LifecycleRemover) -> Unit
 
 fun Controller.addLifecycleCallback(
+
+        onPreCreateView: SingleCallback<Controller>? = null,
+        onPostCreateView: Callback<Controller, View>? = null,
+
         onPreDestroy: SingleCallback<Controller>? = null,
         onPostDestroy: SingleCallback<Controller>? = null,
+
         onPreDestroyView: Callback<Controller, View>? = null,
         onPostDestroyView: SingleCallback<Controller>? = null,
+
         onPreAttach: Callback<Controller, View>? = null,
         onPostAttach: Callback<Controller, View>? = null,
+
         onPostDetach: Callback<Controller, View>? = null,
         onPreDetach: Callback<Controller, View>? = null,
+
         onSaveInstanceState: Callback<Controller, Bundle>? = null,
         onRestoreInstanceState: Callback<Controller, Bundle>? = null,
+
         onSaveViewState: Callback<Controller, Bundle>? = null,
         onRestoreViewState: Callback<Controller, Bundle>? = null
+
 ): Controller.LifecycleListener {
 
     val listener = object : Controller.LifecycleListener() {
 
         private val remover: LifecycleRemover = { removeLifecycleListener(this) }
+
+        override fun preCreateView(controller: Controller) {
+            onPreCreateView?.invoke(controller, remover)
+        }
+
+        override fun postCreateView(controller: Controller, view: View) {
+            onPostCreateView?.invoke(controller, view, remover)
+        }
 
         override fun onSaveViewState(controller: Controller, outState: Bundle) {
             onSaveViewState?.invoke(controller, outState, remover)
