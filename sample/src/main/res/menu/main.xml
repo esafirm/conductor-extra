@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_show_dialog"
+        android:title="Show dialog controller"/>
+
+    <item
+        android:id="@+id/menu_show_data_binding"
+        android:title="Show data binding controller"/>
+
+    <item
+        android:id="@+id/menu_config_change"
+        android:title="Config Changes in controller"/>
+
+    <item
+        android:id="@+id/menu_reset_property"
+        android:title="Reset Property in controller"/>
+
+    <item
+        android:id="@+id/menu_experiment_ovb"
+        android:title="Experiment - On View Bound"/>
+
+</menu>

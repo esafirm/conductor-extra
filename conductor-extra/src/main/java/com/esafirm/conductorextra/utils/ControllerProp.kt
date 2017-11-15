@@ -5,17 +5,17 @@ import com.esafirm.conductorextra.addLifecycleCallback
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-class ControllerProp<T : Any>(controller: Controller, private val event: ControllerPropEvent)
+class ControllerProp<T : Any>(controller: Controller, private val event: ControllerEvent)
     : ReadWriteProperty<Controller, T> {
 
     private var value: T? = null
 
     init {
         when (event) {
-            ControllerPropEvent.DESTROY_VIEW -> {
+            ControllerEvent.DESTROY_VIEW -> {
                 controller.addLifecycleCallback(onPostDestroyView = { _, _ -> value = null })
             }
-            ControllerPropEvent.DETACH -> {
+            ControllerEvent.DETACH -> {
                 controller.addLifecycleCallback(onPostDetach = { _, _, _ -> value = null })
             }
         }

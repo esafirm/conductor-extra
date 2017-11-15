@@ -2,16 +2,16 @@ package com.esafirm.sample
 
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
 import butterknife.BindView
-import butterknife.OnClick
 import com.bluelinelabs.conductor.changehandler.VerticalChangeHandler
 import com.esafirm.conductorextra.butterknife.BinderController
+import com.esafirm.conductorextra.pushTo
 import com.esafirm.conductorextra.showDialog
 import com.esafirm.conductorextra.transaction.Routes
+import com.esafirm.sample.ovb.OnViewBoundTestController
 import com.squareup.picasso.Picasso
 import java.util.*
 
@@ -21,6 +21,7 @@ class MainController : BinderController() {
 
     init {
         retainViewMode = RetainViewMode.RETAIN_DETACH
+        setHasOptionsMenu(true)
     }
 
     override fun getLayoutResId(): Int = R.layout.controller_main
@@ -79,29 +80,36 @@ class MainController : BinderController() {
         }
     }
 
-    @OnClick(R.id.main_btn_reset_property)
-    fun onShowResetProperty() {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_reset_property -> onShowResetProperty()
+            R.id.menu_config_change -> onShowConfigChanges()
+            R.id.menu_show_data_binding -> onShowDataBinding()
+            R.id.menu_show_dialog -> showDialog(getChildRouter(container), DialogController())
+            R.id.menu_experiment_ovb -> router.pushTo(OnViewBoundTestController())
+        }
+        return true
+    }
+
+    private fun onShowResetProperty() {
         router.pushController(Routes.simpleTransaction(
                 ResetPropertyController(),
                 VerticalChangeHandler()
         ))
     }
 
-    @OnClick(R.id.main_btn_show_fetching)
-    fun onShowFetching() {
+    private fun onShowConfigChanges() {
         router.pushController(Routes.simpleTransaction(
                 ConfigChangeController(),
                 VerticalChangeHandler()
         ))
     }
 
-    @OnClick(R.id.main_btn_show_dialog)
-    fun onShowDialogClick() {
-        showDialog(getChildRouter(container), DialogController())
-    }
-
-    @OnClick(R.id.main_btn_show_data_binding)
-    fun onShowDataBinding() {
+    private fun onShowDataBinding() {
         router.pushController(Routes.simpleTransaction(
                 DetailControllerDataBinding(),
                 VerticalChangeHandler()

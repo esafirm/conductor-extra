@@ -1,7 +1,11 @@
 package com.esafirm.conductorextra
 
 import com.bluelinelabs.conductor.Controller
+import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.Router
+import com.bluelinelabs.conductor.RouterTransaction
+import com.bluelinelabs.conductor.changehandler.VerticalChangeHandler
+import com.esafirm.conductorextra.transaction.Routes
 
 fun Router.getTopController(): Controller =
         backstack[backstackSize - 1].controller()
@@ -18,3 +22,22 @@ private fun isHaveMoreBackStack(router: Router, minBackStack: Int): Boolean {
             .any { isHaveMoreBackStack(it, minBackStack) }
 }
 
+fun Router.pushTo(
+        controller: Controller,
+        changeHandler: ControllerChangeHandler = VerticalChangeHandler(),
+        popLastView: Boolean = false) {
+
+    when (popLastView) {
+        true -> setPopsLastView(true)
+        false -> this
+    }.pushController(Routes.simpleTransaction(
+            controller,
+            changeHandler
+    ))
+}
+
+fun Router.setRoot(controller: Controller, ifHasNoRoot: Boolean = false) {
+    if (!ifHasNoRoot || (ifHasNoRoot && !hasRootController())) {
+        setRoot(RouterTransaction.with(controller))
+    }
+}

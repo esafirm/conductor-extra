@@ -12,30 +12,6 @@
         android:animateLayoutChanges="true"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/main_btn_show_dialog"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Show Dialog Controller"/>
-
-        <Button
-            android:id="@+id/main_btn_show_data_binding"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Show Data Binding Controller"/>
-
-        <Button
-            android:id="@+id/main_btn_show_fetching"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Config Change in Controller"/>
-
-        <Button
-            android:id="@+id/main_btn_reset_property"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Reset Property in Controller"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

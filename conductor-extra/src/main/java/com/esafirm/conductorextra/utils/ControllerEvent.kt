@@ -1,6 +1,6 @@
 package com.esafirm.conductorextra.utils
 
-enum class ControllerPropEvent {
+enum class ControllerEvent {
     DETACH,
     DESTROY_VIEW
 }

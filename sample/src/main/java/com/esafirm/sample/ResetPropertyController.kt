@@ -19,18 +19,18 @@ class ResetPropertyController : BinderController() {
     override fun getLayoutResId(): Int = R.layout.controller_reset_property
 
     override fun onViewBound(bindingResult: View, savedState: Bundle?) {
-
         Log.d("ConductorExtra", "onViewBound $savedState")
 
         // Assign loader
         stringLoader = StringLoader()
-
         txtInfo.text = stringLoader.load()
 
+        // Should throw error after detachment!!
         addLifecycleCallback(onPostDetach = { _, _, remover ->
             txtInfo.text = try {
                 stringLoader.load()
             } catch (e: Exception) {
+                e.printStackTrace()
                 Toast.makeText(activity!!, "Stringloader: $e", Toast.LENGTH_SHORT).show()
                 "Destroyed"
             }

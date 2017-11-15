@@ -18,9 +18,10 @@ abstract class BaseController<BindingResult> : Controller {
     constructor(bundle: Bundle) : super(bundle)
 
     init {
-        addLifecycleCallback(onSaveViewState = { _, outState, _ ->
-            outState.markSavedState()
-        })
+        addLifecycleCallback(
+                onSaveViewState = { _, outState, _ -> outState.markSavedState() },
+                onPreCreateView = { _, _ -> onSetupComponent() }
+        )
     }
 
     /* --------------------------------------------------- */
@@ -37,13 +38,11 @@ abstract class BaseController<BindingResult> : Controller {
     /* > Lifecycle */
     /* --------------------------------------------------- */
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-        onSetupComponent()
-        return inflater.inflate(getLayoutResId(), container, false)
-                .also {
-                    bindView(it)
-                }
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View =
+            inflater.inflate(getLayoutResId(), container, false)
+                    .also {
+                        bindView(it)
+                    }
 
     open protected fun bindView(view: View) {
         var savedInstanceState: Bundle? = null
