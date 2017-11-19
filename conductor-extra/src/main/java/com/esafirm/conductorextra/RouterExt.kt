@@ -36,8 +36,8 @@ fun Router.pushTo(
     ))
 }
 
-fun Router.setRoot(controller: Controller, ifHasNoRoot: Boolean = false) {
-    if (!ifHasNoRoot || (ifHasNoRoot && !hasRootController())) {
+fun Router.setRootIfNeeded(controller: Controller) {
+    if (!hasRootController()) {
         setRoot(RouterTransaction.with(controller))
     }
 }
