@@ -3,8 +3,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    final sdk = rootProject.ext.sdks
+
+    compileSdkVersion sdk.compileSdk
+    buildToolsVersion sdk.buildTools
 
     dataBinding.enabled true
 
