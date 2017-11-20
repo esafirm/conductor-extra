@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bluelinelabs.conductor.Controller
 import com.esafirm.conductorextra.addLifecycleCallback
+import com.esafirm.conductorextra.components.configs.ControllerConfigManager
 import com.esafirm.conductorextra.markSavedState
 
 abstract class BaseController<BindingResult> : Controller {
@@ -18,10 +19,14 @@ abstract class BaseController<BindingResult> : Controller {
     constructor(bundle: Bundle) : super(bundle)
 
     init {
-        addLifecycleCallback(
-                onSaveViewState = { _, outState, _ -> outState.markSavedState() },
-                onPreCreateView = { _, _ -> onSetupComponent() }
-        )
+        val config = ControllerConfigManager.configResolver(javaClass)
+        addLifecycleCallback(onSaveViewState = { _, outState, _ -> outState.markSavedState() })
+        addLifecycleCallback(onPreCreateView = { _, remover ->
+            onSetupComponent()
+            if (config.injectOnce) {
+                remover()
+            }
+        })
     }
 
     /* --------------------------------------------------- */
