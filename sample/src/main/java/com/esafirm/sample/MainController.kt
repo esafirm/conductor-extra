@@ -11,6 +11,7 @@ import com.esafirm.conductorextra.butterknife.BinderController
 import com.esafirm.conductorextra.pushTo
 import com.esafirm.conductorextra.showDialog
 import com.esafirm.conductorextra.transaction.Routes
+import com.esafirm.sample.listener.TextReceiverController
 import com.esafirm.sample.ovb.OnViewBoundTestController
 import com.squareup.picasso.Picasso
 import java.util.*
@@ -24,7 +25,8 @@ class MainController : BinderController() {
         setHasOptionsMenu(true)
     }
 
-    override fun getLayoutResId(): Int = R.layout.controller_main
+    override fun getLayoutView(container: ViewGroup): View =
+            container.inflate(R.layout.controller_main)
 
     override fun onViewBound(bindingResult: View, savedState: Bundle?) {
         val images = listOf(
@@ -91,6 +93,7 @@ class MainController : BinderController() {
             R.id.menu_show_data_binding -> onShowDataBinding()
             R.id.menu_show_dialog -> showDialog(getChildRouter(container), DialogController())
             R.id.menu_experiment_ovb -> router.pushTo(OnViewBoundTestController())
+            R.id.menu_experiment_listener -> router.pushTo(TextReceiverController())
         }
         return true
     }

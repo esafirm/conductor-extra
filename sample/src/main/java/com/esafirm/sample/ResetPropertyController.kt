@@ -3,6 +3,7 @@ package com.esafirm.sample
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import butterknife.BindView
@@ -16,7 +17,8 @@ class ResetPropertyController : BinderController() {
 
     private var stringLoader: StringLoader by resetOnDetach()
 
-    override fun getLayoutResId(): Int = R.layout.controller_reset_property
+    override fun getLayoutView(container: ViewGroup): View =
+            container.inflate(R.layout.controller_reset_property)
 
     override fun onViewBound(bindingResult: View, savedState: Bundle?) {
         Log.d("ConductorExtra", "onViewBound $savedState")

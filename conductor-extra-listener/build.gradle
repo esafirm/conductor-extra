@@ -1,0 +1,32 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion rootProject.ext.sdks.compileSdk
+    buildToolsVersion rootProject.ext.sdks.buildTools
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.sdks.minSdk
+        targetSdkVersion rootProject.ext.sdks.targetSdk
+
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    
+    api 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
+    api project(':conductor-extra')
+
+    testImplementation 'junit:junit:4.12'
+}

@@ -3,6 +3,7 @@ package com.esafirm.sample
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.BindView
 import com.esafirm.conductorextra.addLifecycleCallback
@@ -17,7 +18,8 @@ class ConfigChangeController : BinderController() {
     private val counter = Counter().also { Log.w("Counter", "Initialize counter") }
     private val timer = Timer()
 
-    override fun getLayoutResId(): Int = R.layout.controller_config_change
+    override fun getLayoutView(container: ViewGroup): View =
+            container.inflate(R.layout.controller_config_change)
 
     override fun onViewBound(bindingResult: View, savedState: Bundle?) {
         txtMain.text = counter.count.toString()

@@ -17,6 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
 
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -30,25 +31,24 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile 'com.android.support:multidex:1.0.2'
+
     compile project(':conductor-extra')
     compile project(':conductor-extra-butterknife')
     compile project(':conductor-extra-databinding')
+    compile project(':conductor-extra-listener')
 
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:support-v4:25.1.0'
 
     /* For Demo */
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'nz.bradcampbell:paperparcel:2.0.1'
-    compile 'nz.bradcampbell:paperparcel-kotlin:2.0.1'
-    kapt 'nz.bradcampbell:paperparcel-compiler:2.0.1'
+    compile 'nz.bradcampbell:paperparcel:2.0.4'
+    compile 'nz.bradcampbell:paperparcel-kotlin:2.0.4'
+    kapt 'nz.bradcampbell:paperparcel-compiler:2.0.4'
     kapt 'com.jakewharton:butterknife-compiler:8.6.0'
-    kapt 'com.android.databinding:compiler:2.3.3'
+    kapt 'com.android.databinding:compiler:3.0.1'
 
     compile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
     testCompile 'junit:junit:4.12'
 }

@@ -1,6 +1,8 @@
 package com.esafirm.sample
 
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
 import com.esafirm.conductorextra.databinding.BinderController
 import com.esafirm.sample.databinding.ControllerDataBindingBinding
 
@@ -10,5 +12,5 @@ class DetailControllerDataBinding : BinderController<ControllerDataBindingBindin
         bindingResult.detailImg.setImageResource(R.mipmap.ic_launcher)
     }
 
-    override fun getLayoutResId(): Int = R.layout.controller_data_binding
+    override fun getLayoutView(container: ViewGroup): View = container.inflate(R.layout.controller_data_binding)
 }

@@ -2,6 +2,7 @@ package com.esafirm.sample
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
@@ -17,7 +18,8 @@ class DetailWithPropsController(bundle: Bundle) : BinderController(bundle) {
     @BindView(R.id.detail_img) lateinit var imageView: ImageView
     @BindView(R.id.detail_txt) lateinit var txtDetail: TextView
 
-    override fun getLayoutResId(): Int = R.layout.controller_detail_with_props
+    override fun getLayoutView(container: ViewGroup): View =
+            container.inflate(R.layout.controller_detail_with_props)
 
     override fun onViewBound(bindingResult: View, savedState: Bundle?) {
         val props = getProps<DetailProps>()

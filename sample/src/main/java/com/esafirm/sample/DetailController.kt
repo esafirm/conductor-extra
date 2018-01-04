@@ -2,6 +2,7 @@ package com.esafirm.sample
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import com.esafirm.conductorextra.butterknife.BinderController
 import com.esafirm.conductorextra.utils.BundleBuilder
@@ -17,7 +18,8 @@ class DetailController(bundle: Bundle) : BinderController(bundle) {
             .putString(ARG_IMAGE, image)
             .build())
 
-    override fun getLayoutResId(): Int = R.layout.controller_detail
+    override fun getLayoutView(container: ViewGroup): View =
+            container.inflate(R.layout.controller_detail)
 
     override fun onViewBound(bindingResult: View, savedState: Bundle?) {
         val imgDetail by lazy { bindingResult.findViewById<ImageView>(R.id.detail_img) }

@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.SwitchCompat
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.BindView
 import com.esafirm.conductorextra.butterknife.BinderController
@@ -20,7 +21,7 @@ class OnViewBoundTestController : BinderController() {
 
     private val counter = Counter()
 
-    override fun getLayoutResId(): Int = R.layout.controller_experiment_ovb
+    override fun getLayoutView(container: ViewGroup) = container.inflate(R.layout.controller_experiment_ovb)
 
     override fun onViewBound(bindingResult: View, savedState: Bundle?) {
         Logger.log("onViewBoundCalled in $this")
