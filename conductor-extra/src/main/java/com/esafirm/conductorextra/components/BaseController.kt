@@ -1,6 +1,7 @@
 package com.esafirm.conductorextra.components
 
 import android.os.Bundle
+import android.support.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +34,7 @@ abstract class BaseController<BindingResult> : Controller {
     /* > To be overrode */
     /* --------------------------------------------------- */
 
-    abstract fun getLayoutResId(): Int
+    abstract fun getLayoutView(container: ViewGroup): View
     abstract fun onViewBound(bindingResult: BindingResult, savedState: Bundle?)
     abstract fun getBinder(): ControllerBinder<BindingResult>
 
@@ -44,10 +45,7 @@ abstract class BaseController<BindingResult> : Controller {
     /* --------------------------------------------------- */
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View =
-            inflater.inflate(getLayoutResId(), container, false)
-                    .also {
-                        bindView(it)
-                    }
+            getLayoutView(container).also { bindView(it) }
 
     open protected fun bindView(view: View) {
         var savedInstanceState: Bundle? = null
@@ -59,4 +57,11 @@ abstract class BaseController<BindingResult> : Controller {
                 }
         )
     }
+
+    /* --------------------------------------------------- */
+    /* > Helper */
+    /* --------------------------------------------------- */
+
+    protected fun ViewGroup.inflate(@LayoutRes resId: Int) =
+            LayoutInflater.from(context).inflate(resId, this, false)!!
 }

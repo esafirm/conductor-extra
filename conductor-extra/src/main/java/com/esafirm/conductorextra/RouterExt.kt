@@ -25,7 +25,7 @@ private fun isHaveMoreBackStack(router: Router, minBackStack: Int): Boolean {
 fun Router.pushTo(
         controller: Controller,
         changeHandler: ControllerChangeHandler = VerticalChangeHandler(),
-        popLastView: Boolean = false) {
+        popLastView: Boolean = false): Controller {
 
     when (popLastView) {
         true -> setPopsLastView(true)
@@ -34,10 +34,13 @@ fun Router.pushTo(
             controller,
             changeHandler
     ))
+
+    return controller
 }
 
-fun Router.setRootIfNeeded(controller: Controller) {
+fun Router.setRootIfNeeded(controller: Controller): Controller {
     if (!hasRootController()) {
         setRoot(RouterTransaction.with(controller))
     }
+    return controller
 }

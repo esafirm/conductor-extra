@@ -24,7 +24,7 @@ abstract class BaseDialogController<BindingResult> : BaseController<BindingResul
         onSetupComponent()
 
         val overlay = inflater.inflate(R.layout.ce_controller_abs_dialog, container, false) as ViewGroup
-        val view = inflater.inflate(getLayoutResId(), overlay, false)
+        val view = getLayoutView(overlay)
 
         overlay.setOnClickListener {
             if (!handleOverlay()) {
