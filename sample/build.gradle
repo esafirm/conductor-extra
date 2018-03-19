@@ -1,6 +1,11 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+
+androidExtensions {
+    experimental true
+}
 
 android {
     final sdk = rootProject.ext.sdks
@@ -32,12 +37,13 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'com.android.support:multidex:1.0.2'
+    compile 'com.android.support:multidex:1.0.3'
 
     compile project(':conductor-extra')
     compile project(':conductor-extra-butterknife')
     compile project(':conductor-extra-databinding')
     compile project(':conductor-extra-listener')
+    compile project(':conductor-extra-screen')
 
     compile 'com.android.support:support-v4:25.1.0'
 

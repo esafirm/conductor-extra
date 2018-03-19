@@ -13,7 +13,11 @@ const val ARG_PROPS: String = "Argument.Props"
 
 fun Parcelable.toPropsBundle(): Bundle = BundleBuilder().putParcelable(ARG_PROPS, this).build()
 
-inline fun <reified T : Parcelable> Controller.getProps(): T = args.getParcelable(ARG_PROPS)
+inline fun <reified T : Parcelable> Controller.getProps(): T {
+    val props: T? = args.getParcelable(ARG_PROPS)
+    check(props != null) { "Props must be set first with Percelable.toPropsBundle()" }
+    return props!!
+}
 
 /* --------------------------------------------------- */
 /* > Saved State */

@@ -26,4 +26,12 @@
         android:title="Experiment - Controller Listener"
         />
 
+    <item
+        android:id="@+id/menu_experiment_screen_simple"
+        android:title="Experiment - Simple Screen"/>
+
+    <item
+        android:id="@+id/menu_experiment_screen_stateful"
+        android:title="Experiment - Stateful Screen"/>
+
 </menu>

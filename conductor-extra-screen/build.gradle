@@ -1,5 +1,10 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+androidExtensions {
+    experimental true
+}
 
 android {
     compileSdkVersion rootProject.ext.sdks.compileSdk
@@ -24,9 +29,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    api 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
+    api 'nolambda.stream:statesubject:1.0.0'
     api project(':conductor-extra')
-
-    testImplementation 'junit:junit:4.12'
 }
