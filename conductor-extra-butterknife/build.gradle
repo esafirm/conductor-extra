@@ -22,11 +22,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':conductor-extra')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':conductor-extra')
 
     /* View Binding */
-    compile 'com.jakewharton:butterknife:8.6.0'
+    implementation 'com.jakewharton:butterknife:8.6.0'
 
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }
