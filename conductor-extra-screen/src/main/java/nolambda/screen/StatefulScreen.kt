@@ -1,15 +1,10 @@
 package nolambda.screen
 
 import android.os.Bundle
-import android.os.Parcelable
 import com.esafirm.conductorextra.addLifecycleCallback
 import io.reactivex.functions.Consumer
 
 abstract class StatefulScreen<State> : BaseScreen {
-
-    companion object {
-        private const val KEY_STATE = "SCREEN_STATE"
-    }
 
     constructor() : super()
     constructor(bundle: Bundle?) : super(bundle)
@@ -23,18 +18,20 @@ abstract class StatefulScreen<State> : BaseScreen {
 
     protected lateinit var screenPresenter: Presenter<State>
 
+    private val defaultStateSaver by lazy { DefaultStateSaver<State>() }
+    protected var stateSaver: StateSaver<State>? = null
+        get() = field ?: defaultStateSaver
+
+
     override fun onSaveInstanceState(outState: Bundle) {
         val state = screenPresenter.stateSubject.value
-        if (state != null && state is Parcelable) {
-            outState.putParcelable(KEY_STATE, state)
-        }
+        stateSaver?.onSaveInstanceState(state, outState)
     }
 
-    @Suppress("UNCHECKED_CAST")
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        val state = savedInstanceState.getParcelable<Parcelable>(KEY_STATE)
+        val state = stateSaver?.onRestoreInstanceState(savedInstanceState)
         if (state != null) {
-            screenPresenter.stateSubject.postValue(state as State)
+            screenPresenter.stateSubject.postValue(state)
         }
     }
 
