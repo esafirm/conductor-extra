@@ -1,6 +1,6 @@
 include ':conductor-extra',
-        ':sample',
         ':conductor-extra-butterknife',
         ':conductor-extra-databinding',
         ':conductor-extra-listener',
-        ':conductor-extra-screen'
+        ':conductor-extra-screen',
+        ':sample'
