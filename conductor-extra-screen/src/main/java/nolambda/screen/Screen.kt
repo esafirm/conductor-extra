@@ -9,10 +9,7 @@ abstract class Screen : BaseScreen {
     constructor(args: Bundle?) : super(args)
 
     init {
-        addLifecycleCallback(onPostCreateView = { _, _, remover ->
-            render()
-            remover()
-        })
+        addLifecycleCallback(onPostAttach = { _, _, _ -> render() })
     }
 
     abstract fun render()
