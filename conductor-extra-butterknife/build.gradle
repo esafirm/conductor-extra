@@ -35,7 +35,7 @@ dependencies {
     implementation project(':conductor-extra')
 
     /* View Binding */
-    implementation 'com.jakewharton:butterknife:8.6.0'
+    api 'com.jakewharton:butterknife:8.6.0'
 
     testImplementation 'junit:junit:4.12'
 }

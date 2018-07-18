@@ -37,6 +37,6 @@ artifacts {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api 'nolambda.stream:statesubject:1.0.0'
+    api 'nolambda.stream:statesubject:1.0.1'
     api project(':conductor-extra')
 }

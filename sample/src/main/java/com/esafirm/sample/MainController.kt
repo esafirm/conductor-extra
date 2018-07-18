@@ -72,8 +72,8 @@ class MainController : BinderController() {
                     }
 
                     post {
-                        ViewCompat.setAlpha(this, 0f)
-                        ViewCompat.setTranslationY(this, 20f)
+                        alpha = 0f
+                        translationY = 20f
                         ViewCompat.animate(this)
                                 .setStartDelay(Math.max(800, (Math.random() * 1800).toLong()))
                                 .alpha(1f)
