@@ -13,6 +13,7 @@ import com.esafirm.conductorextra.showDialog
 import com.esafirm.conductorextra.transaction.Routes
 import com.esafirm.sample.listener.TextReceiverController
 import com.esafirm.sample.ovb.OnViewBoundTestController
+import com.esafirm.sample.screen.SampleLazyStateScreen
 import com.esafirm.sample.screen.SampleStateScreen
 import com.esafirm.sample.screen.SimpleTextScreen
 import com.squareup.picasso.Picasso
@@ -98,6 +99,7 @@ class MainController : BinderController() {
             R.id.menu_experiment_listener -> router.pushTo(TextReceiverController())
             R.id.menu_experiment_screen_simple -> router.pushTo(SimpleTextScreen())
             R.id.menu_experiment_screen_stateful -> router.pushTo(SampleStateScreen())
+            R.id.menu_experiment_screen_stateful_lazy -> router.pushTo(SampleLazyStateScreen())
         }
         return true
     }

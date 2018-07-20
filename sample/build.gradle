@@ -57,6 +57,10 @@ dependencies {
     implementation "android.arch.core:runtime:1.1.1"
     implementation "android.arch.core:common:1.1.1"
 
+    /* Detect Memory Leak */
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
     implementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     testImplementation 'junit:junit:4.12'
 }

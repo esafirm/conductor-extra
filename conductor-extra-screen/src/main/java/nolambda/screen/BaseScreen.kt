@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bluelinelabs.conductor.Controller
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.*
 
 abstract class BaseScreen : Controller, LifecycleOwner, LayoutContainer {
 
@@ -27,6 +28,11 @@ abstract class BaseScreen : Controller, LifecycleOwner, LayoutContainer {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         return screenView(inflater, container)
+    }
+
+    override fun onDestroyView(view: View) {
+        clearFindViewByIdCache()
+        super.onDestroyView(view)
     }
 
     protected fun xml(@LayoutRes resId: Int) = { inflater: LayoutInflater, group: ViewGroup ->

@@ -34,4 +34,8 @@
         android:id="@+id/menu_experiment_screen_stateful"
         android:title="Experiment - Stateful Screen"/>
 
+    <item
+        android:id="@+id/menu_experiment_screen_stateful_lazy"
+        android:title="Experiment - Stateful Screen + Lazy Dependency"/>
+
 </menu>

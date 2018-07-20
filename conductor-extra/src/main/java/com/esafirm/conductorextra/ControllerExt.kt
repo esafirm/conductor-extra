@@ -1,5 +1,6 @@
 package com.esafirm.conductorextra
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import com.bluelinelabs.conductor.Controller
@@ -43,6 +44,12 @@ typealias SingleCallback<P1> = (P1, LifecycleRemover) -> Unit
 
 fun Controller.addLifecycleCallback(
 
+        onPreContextAvailable: SingleCallback<Controller>? = null,
+        onPostContextAvailable: SingleCallback<Controller>? = null,
+
+        onPreContextUnavailable: SingleCallback<Controller>? = null,
+        onPostContextUnavalable: SingleCallback<Controller>? = null,
+
         onPreCreateView: SingleCallback<Controller>? = null,
         onPostCreateView: Callback<Controller, View>? = null,
 
@@ -69,6 +76,22 @@ fun Controller.addLifecycleCallback(
     val listener = object : Controller.LifecycleListener() {
 
         private val remover: LifecycleRemover = { removeLifecycleListener(this) }
+
+        override fun preContextAvailable(controller: Controller) {
+            onPreContextAvailable?.invoke(controller, remover)
+        }
+
+        override fun postContextAvailable(controller: Controller, context: Context) {
+            onPostContextAvailable?.invoke(controller, remover)
+        }
+
+        override fun preContextUnavailable(controller: Controller, context: Context) {
+            onPreContextUnavailable?.invoke(controller, remover)
+        }
+
+        override fun postContextUnavailable(controller: Controller) {
+            onPostContextUnavalable?.invoke(controller, remover)
+        }
 
         override fun preCreateView(controller: Controller) {
             onPreCreateView?.invoke(controller, remover)

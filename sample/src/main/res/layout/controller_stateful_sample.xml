@@ -7,6 +7,13 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/txt_ticking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#000"/>
+
+    <TextView
         android:id="@+id/txt_yeah"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,6 +31,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Reset Counter"/>
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"/>
+
+    <Button
+        android:id="@+id/btn_subtract"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subtract"/>
 
     <Button
         android:id="@+id/btn_add_async"
