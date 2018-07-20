@@ -101,6 +101,7 @@ class MainController : BinderController() {
             R.id.menu_experiment_screen_simple -> router.pushTo(SimpleTextScreen())
             R.id.menu_experiment_screen_stateful -> router.pushTo(SampleStateScreen())
             R.id.menu_experiment_screen_stateful_lazy -> router.pushTo(SampleLazyStateScreen())
+            R.id.menu_show_dialog_screen -> showDialog(getChildRouter(container), DialogScreen())
         }
         return true
     }

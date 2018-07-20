@@ -5,8 +5,9 @@
         android:id="@+id/menu_show_dialog"
         android:title="Show dialog controller"/>
 
-    <item android:id="@+id/menu_show_dialog_binding"
-          android:title="Show dialog controller data binding"/>
+    <item
+        android:id="@+id/menu_show_dialog_binding"
+        android:title="Show dialog controller data binding"/>
 
     <item
         android:id="@+id/menu_show_data_binding"
@@ -40,5 +41,9 @@
     <item
         android:id="@+id/menu_experiment_screen_stateful_lazy"
         android:title="Experiment - Stateful Screen + Lazy Dependency"/>
+
+    <item
+        android:id="@+id/menu_show_dialog_screen"
+        android:title="Experiment - Show dialog screen"/>
 
 </menu>

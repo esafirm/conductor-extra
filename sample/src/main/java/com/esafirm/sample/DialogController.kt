@@ -13,7 +13,7 @@ class DialogController : BinderDialogController() {
     @BindView(R.id.dialog_img) lateinit var imageView: ImageView
 
     override fun getLayoutView(container: ViewGroup): View =
-            container.inflate(R.layout.dialog_ontroller)
+            container.inflate(R.layout.dialog_controller)
 
     override fun onViewBound(bindingResult: View, savedState: Bundle?) {
         Picasso.with(applicationContext)
