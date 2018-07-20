@@ -20,7 +20,7 @@ abstract class BaseDialogController<BindingResult> : BaseController<BindingResul
     /* > Methods */
     /* --------------------------------------------------- */
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup, savedViewState: Bundle?): View {
         onSetupComponent()
 
         val overlay = inflater.inflate(R.layout.ce_controller_abs_dialog, container, false) as ViewGroup
@@ -34,7 +34,7 @@ abstract class BaseDialogController<BindingResult> : BaseController<BindingResul
 
         overlay.addView(view)
         return overlay.also {
-            bindView(it)
+            bindView(it, savedViewState)
         }
     }
 

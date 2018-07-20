@@ -5,6 +5,9 @@
         android:id="@+id/menu_show_dialog"
         android:title="Show dialog controller"/>
 
+    <item android:id="@+id/menu_show_dialog_binding"
+          android:title="Show dialog controller data binding"/>
+
     <item
         android:id="@+id/menu_show_data_binding"
         android:title="Show data binding controller"/>

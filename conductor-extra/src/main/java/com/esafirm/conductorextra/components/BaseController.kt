@@ -5,12 +5,12 @@ import android.support.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bluelinelabs.conductor.Controller
+import com.bluelinelabs.conductor.RestoreViewOnCreateController
 import com.esafirm.conductorextra.addLifecycleCallback
 import com.esafirm.conductorextra.components.configs.ControllerConfigManager
 import com.esafirm.conductorextra.markSavedState
 
-abstract class BaseController<BindingResult> : Controller {
+abstract class BaseController<BindingResult> : RestoreViewOnCreateController {
 
     /* --------------------------------------------------- */
     /* > Constructor */
@@ -44,18 +44,14 @@ abstract class BaseController<BindingResult> : Controller {
     /* > Lifecycle */
     /* --------------------------------------------------- */
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View =
-            getLayoutView(container).also { bindView(it) }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup, savedViewState: Bundle?) =
+            getLayoutView(container).also { bindView(it, savedViewState) }
 
-    open protected fun bindView(view: View) {
-        var savedInstanceState: Bundle? = null
-        addLifecycleCallback(
-                onRestoreViewState = { _, state, _ -> savedInstanceState = state },
-                onPreAttach = { _, _, remover ->
-                    onViewBound(getBinder().bind(view), savedInstanceState)
-                    remover()
-                }
-        )
+    protected open fun bindView(view: View, savedViewState: Bundle?) {
+        addLifecycleCallback(onPreAttach = { _, _, remover ->
+            onViewBound(getBinder().bind(view), savedViewState)
+            remover()
+        })
     }
 
     /* --------------------------------------------------- */

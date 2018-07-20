@@ -18,5 +18,5 @@ abstract class BinderDialogController<Binding : ViewDataBinding> : BaseDialogCon
     /* > View Binding */
     /* --------------------------------------------------- */
 
-    override fun getBinder(): ControllerBinder<Binding> = DataBindingBinder.createBinder()
+    override fun getBinder(): ControllerBinder<Binding> = DataBindingBinder.createBinder(true)
 }

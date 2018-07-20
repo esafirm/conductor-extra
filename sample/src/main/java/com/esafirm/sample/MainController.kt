@@ -95,6 +95,7 @@ class MainController : BinderController() {
             R.id.menu_config_change -> onShowConfigChanges()
             R.id.menu_show_data_binding -> onShowDataBinding()
             R.id.menu_show_dialog -> showDialog(getChildRouter(container), DialogController())
+            R.id.menu_show_dialog_binding -> showDialog(getChildRouter(container), DialogControllerDataBinding())
             R.id.menu_experiment_ovb -> router.pushTo(OnViewBoundTestController())
             R.id.menu_experiment_listener -> router.pushTo(TextReceiverController())
             R.id.menu_experiment_screen_simple -> router.pushTo(SimpleTextScreen())
