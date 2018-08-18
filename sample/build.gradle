@@ -51,16 +51,16 @@ dependencies {
     implementation 'nz.bradcampbell:paperparcel-kotlin:2.0.4'
     kapt 'nz.bradcampbell:paperparcel-compiler:2.0.4'
     kapt 'com.jakewharton:butterknife-compiler:8.6.0'
-    kapt 'com.android.databinding:compiler:3.1.3'
+    kapt 'com.android.databinding:compiler:3.1.4'
 
     /* To resolve R8 error */
     implementation "android.arch.core:runtime:1.1.1"
     implementation "android.arch.core:common:1.1.1"
 
     /* Detect Memory Leak */
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
-    implementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    implementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
     testImplementation 'junit:junit:4.12'
 }
