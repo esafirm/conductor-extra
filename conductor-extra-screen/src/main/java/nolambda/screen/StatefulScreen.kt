@@ -8,8 +8,23 @@ import io.reactivex.functions.Consumer
 
 abstract class StatefulScreen<STATE, PRESENTER : Presenter<STATE>> : BaseScreen {
 
-    protected lateinit var screenPresenter: () -> PRESENTER
+
     protected var stateTransformer: ObservableTransformer<STATE, STATE>? = null
+
+    // Presenter that exposed
+    protected lateinit var screenPresenter: () -> PRESENTER
+    // Presenter to use internally
+    private val presenterInternal by lazy { screenPresenter() }
+
+    protected lateinit var stateSaver: () -> StateSaver<STATE>
+    private val defaultStateSaver by lazy { DefaultStateSaver<STATE>() }
+    private val internalStateSaver by lazy {
+        try {
+            stateSaver()
+        } catch (e: Exception) {
+            defaultStateSaver
+        }
+    }
 
     private var deferredState: STATE? = null
 
@@ -23,27 +38,21 @@ abstract class StatefulScreen<STATE, PRESENTER : Presenter<STATE>> : BaseScreen 
 
     init {
         addLifecycleCallback(onPostCreateView = { _, _, remover ->
-            val presenter = screenPresenter()
-            presenter.bind(this)
-            presenter.stateSubject.subscribe(this, stateTransformer, Consumer {
-                render(presenter, it)
+            presenterInternal.bind(this)
+            presenterInternal.stateSubject.subscribe(this, stateTransformer, Consumer {
+                render(presenterInternal, it)
             })
             remover()
         })
     }
 
-    private val defaultStateSaver by lazy { DefaultStateSaver<STATE>() }
-    protected var stateSaver: StateSaver<STATE>? = null
-        get() = field ?: defaultStateSaver
-
-
     override fun onSaveInstanceState(outState: Bundle) {
-        val state = screenPresenter().stateSubject.value
-        stateSaver?.onSaveInstanceState(state, outState)
+        val state = presenterInternal.stateSubject.value
+        internalStateSaver.onSaveInstanceState(state, outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        deferredState = stateSaver?.onRestoreInstanceState(savedInstanceState)
+        deferredState = internalStateSaver.onRestoreInstanceState(savedInstanceState)
     }
 
     private fun restoreStateIfNeeded() {

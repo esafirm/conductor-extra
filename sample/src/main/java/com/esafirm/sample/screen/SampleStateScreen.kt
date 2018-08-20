@@ -11,17 +11,14 @@ import io.reactivex.functions.Consumer
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 import kotlinx.android.synthetic.main.controller_stateful_sample.*
-import nolambda.screen.Presenter
-import nolambda.screen.SingleEvent
-import nolambda.screen.StatefulScreen
-import nolambda.screen.asSingleEvent
+import nolambda.screen.*
 import nolambda.statesubject.StateSubject
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 class TickingValueData : StateSubject<Int>() {
 
-    private var timer :Timer? = null
+    private var timer: Timer? = null
     private var value: Int = 0
 
     fun setInitialValue(value: Int) {
@@ -120,6 +117,22 @@ class SampleLazyStateScreen : SampleStateScreen() {
     private lateinit var presenter: SamplePresenter
 
     init {
+        screenView = xml(R.layout.controller_stateful_sample)
+        screenPresenter = { presenter }
+
+        addLifecycleCallback(onPreContextAvailable = { _, remover ->
+            presenter = SamplePresenter(TickingValueData())
+            remover()
+        })
+    }
+}
+
+class SampleDiskStateSaver : SampleStateScreen() {
+
+    private lateinit var presenter: SamplePresenter
+
+    init {
+        stateSaver = { DefaultDiskStateSaver(activity!!) }
         screenView = xml(R.layout.controller_stateful_sample)
         screenPresenter = { presenter }
 

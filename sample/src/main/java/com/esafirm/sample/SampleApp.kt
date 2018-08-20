@@ -1,6 +1,7 @@
 package com.esafirm.sample
 
 import android.support.multidex.MultiDexApplication
+import com.facebook.stetho.Stetho
 import com.squareup.leakcanary.LeakCanary
 
 class SampleApp : MultiDexApplication() {
@@ -10,5 +11,6 @@ class SampleApp : MultiDexApplication() {
             return
         }
         LeakCanary.install(this)
+        Stetho.initializeWithDefaults(this)
     }
 }

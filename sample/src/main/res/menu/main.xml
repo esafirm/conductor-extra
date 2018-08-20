@@ -43,6 +43,10 @@
         android:title="Experiment - Stateful Screen + Lazy Dependency"/>
 
     <item
+        android:id="@+id/menu_experiment_screen_stateful_disk_saver"
+        android:title="Experiment - Stateful Screen + Disk State Saver"/>
+
+    <item
         android:id="@+id/menu_show_dialog_screen"
         android:title="Experiment - Show dialog screen"/>
 
