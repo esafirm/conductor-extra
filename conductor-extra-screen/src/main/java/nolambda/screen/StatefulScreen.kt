@@ -2,7 +2,7 @@ package nolambda.screen
 
 import android.content.Context
 import android.os.Bundle
-import com.esafirm.conductorextra.addLifecycleCallback
+import com.esafirm.conductorextra.onEvent
 import io.reactivex.ObservableTransformer
 import io.reactivex.functions.Consumer
 
@@ -37,7 +37,7 @@ abstract class StatefulScreen<STATE, PRESENTER : Presenter<STATE>> : BaseScreen 
     }
 
     init {
-        addLifecycleCallback(onPostCreateView = { _, _, remover ->
+        onEvent(onPostCreateView = { _, _, remover ->
             presenterInternal.bind(this)
             presenterInternal.stateSubject.subscribe(this, stateTransformer, Consumer {
                 render(presenterInternal, it)

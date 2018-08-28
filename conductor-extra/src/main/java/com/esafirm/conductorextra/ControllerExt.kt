@@ -42,7 +42,7 @@ typealias LifecycleRemover = () -> Unit
 typealias Callback<P1, P2> = (P1, P2, LifecycleRemover) -> Unit
 typealias SingleCallback<P1> = (P1, LifecycleRemover) -> Unit
 
-fun Controller.addLifecycleCallback(
+fun Controller.onEvent(
 
         onPreContextAvailable: SingleCallback<Controller>? = null,
         onPostContextAvailable: SingleCallback<Controller>? = null,

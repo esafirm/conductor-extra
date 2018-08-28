@@ -6,6 +6,9 @@ import android.util.SparseArray
 import java.io.Serializable
 import java.util.*
 
+/** Helper class to make inline Bundle in Java
+ * Kotlin can simply use Bundle().apply {} for this kind of thing
+ * **/
 class BundleBuilder {
 
     private val bundle: Bundle

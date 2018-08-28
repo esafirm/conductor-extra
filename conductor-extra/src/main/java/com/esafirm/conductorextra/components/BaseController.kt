@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bluelinelabs.conductor.RestoreViewOnCreateController
-import com.esafirm.conductorextra.addLifecycleCallback
 import com.esafirm.conductorextra.components.configs.ControllerConfigManager
 import com.esafirm.conductorextra.markSavedState
+import com.esafirm.conductorextra.onEvent
 
 abstract class BaseController<BindingResult> : RestoreViewOnCreateController {
 
@@ -21,8 +21,8 @@ abstract class BaseController<BindingResult> : RestoreViewOnCreateController {
 
     init {
         val config = ControllerConfigManager.configResolver(javaClass)
-        addLifecycleCallback(onSaveViewState = { _, outState, _ -> outState.markSavedState() })
-        addLifecycleCallback(onPreCreateView = { _, remover ->
+        onEvent(onSaveViewState = { _, outState, _ -> outState.markSavedState() })
+        onEvent(onPreCreateView = { _, remover ->
             onSetupComponent()
             if (config.injectOnce) {
                 remover()
@@ -48,7 +48,7 @@ abstract class BaseController<BindingResult> : RestoreViewOnCreateController {
             getLayoutView(container).also { bindView(it, savedViewState) }
 
     protected open fun bindView(view: View, savedViewState: Bundle?) {
-        addLifecycleCallback(onPreAttach = { _, _, remover ->
+        onEvent(onPreAttach = { _, _, remover ->
             onViewBound(getBinder().bind(view), savedViewState)
             remover()
         })

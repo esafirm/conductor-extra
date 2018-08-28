@@ -4,7 +4,7 @@ import android.arch.lifecycle.LifecycleOwner
 import android.os.Parcelable
 import android.view.View
 import android.widget.Toast
-import com.esafirm.conductorextra.addLifecycleCallback
+import com.esafirm.conductorextra.onEvent
 import com.esafirm.sample.R
 import io.reactivex.Single
 import io.reactivex.functions.Consumer
@@ -120,7 +120,7 @@ class SampleLazyStateScreen : SampleStateScreen() {
         screenView = xml(R.layout.controller_stateful_sample)
         screenPresenter = { presenter }
 
-        addLifecycleCallback(onPreContextAvailable = { _, remover ->
+        onEvent(onPreContextAvailable = { _, remover ->
             presenter = SamplePresenter(TickingValueData())
             remover()
         })
@@ -136,7 +136,7 @@ class SampleDiskStateSaver : SampleStateScreen() {
         screenView = xml(R.layout.controller_stateful_sample)
         screenPresenter = { presenter }
 
-        addLifecycleCallback(onPreContextAvailable = { _, remover ->
+        onEvent(onPreContextAvailable = { _, remover ->
             presenter = SamplePresenter(TickingValueData())
             remover()
         })

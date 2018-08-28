@@ -3,7 +3,7 @@ package com.esafirm.conductorextra.butterknife
 import android.view.View
 import butterknife.ButterKnife
 import com.bluelinelabs.conductor.Controller
-import com.esafirm.conductorextra.addLifecycleCallback
+import com.esafirm.conductorextra.onEvent
 import com.esafirm.conductorextra.components.ControllerBinder
 
 object ButterknifeBinder {
@@ -14,7 +14,7 @@ object ButterknifeBinder {
 
     private fun bind(target: Any, view: View, controller: Controller): View {
         ButterKnife.bind(target, view).also { binder ->
-            controller.addLifecycleCallback(onPostDestroyView = { _, remover ->
+            controller.onEvent(onPostDestroyView = { _, remover ->
                 binder.unbind()
                 remover()
             })

@@ -1,7 +1,7 @@
 package nolambda.screen
 
 import android.os.Bundle
-import com.esafirm.conductorextra.addLifecycleCallback
+import com.esafirm.conductorextra.onEvent
 
 abstract class Screen : BaseScreen {
 
@@ -9,7 +9,7 @@ abstract class Screen : BaseScreen {
     constructor(args: Bundle?) : super(args)
 
     init {
-        addLifecycleCallback(onPostAttach = { _, _, _ -> render() })
+        onEvent(onPostAttach = { _, _, _ -> render() })
     }
 
     abstract fun render()

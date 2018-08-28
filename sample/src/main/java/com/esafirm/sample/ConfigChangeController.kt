@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.BindView
-import com.esafirm.conductorextra.addLifecycleCallback
+import com.esafirm.conductorextra.onEvent
 import com.esafirm.conductorextra.butterknife.BinderController
 import com.esafirm.sample.utils.Counter
 import java.util.*
@@ -36,7 +36,7 @@ class ConfigChangeController : BinderController() {
                 }
             }, 1000, 1000)
 
-            addLifecycleCallback(onPreDestroy = { _, remover ->
+            onEvent(onPreDestroy = { _, remover ->
                 timer.cancel()
                 remover()
             })

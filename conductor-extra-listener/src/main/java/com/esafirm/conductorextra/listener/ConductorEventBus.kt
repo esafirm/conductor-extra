@@ -1,7 +1,7 @@
 package com.esafirm.conductorextra.listener
 
 import com.bluelinelabs.conductor.Controller
-import com.esafirm.conductorextra.addLifecycleCallback
+import com.esafirm.conductorextra.onEvent
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
@@ -45,7 +45,7 @@ fun <T> Controller.onEvent(block: (T) -> Unit) {
 
     bindController()
 
-    addLifecycleCallback(
+    onEvent(
             onPostAttach = { _, _, _ -> bindController() },
             onPostDetach = { _, _, _ ->
                 disposable?.dispose()
