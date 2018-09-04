@@ -3,19 +3,36 @@ package com.esafirm.conductorextra
 import android.os.Bundle
 import android.os.Parcelable
 import com.bluelinelabs.conductor.Controller
-import com.esafirm.conductorextra.utils.BundleBuilder
+import java.io.Serializable
 
 /* --------------------------------------------------- */
 /* > Props */
 /* --------------------------------------------------- */
 
+const val ARG_PROPS_TYPE = "Argument.Props.Type"
 const val ARG_PROPS: String = "Argument.Props"
 
-fun Parcelable.toPropsBundle(): Bundle = BundleBuilder().putParcelable(ARG_PROPS, this).build()
+const val PROPS_TYPE_PARCEL = 1
+const val PROPS_TYPE_SERIALIZABLE = 2
+
+fun Parcelable.toPropsBundle(): Bundle = Bundle().apply {
+    putInt(ARG_PROPS_TYPE, PROPS_TYPE_PARCEL)
+    putParcelable(ARG_PROPS, this)
+}
+
+fun Serializable.toPropsBundle(): Bundle = Bundle().apply {
+    putInt(ARG_PROPS_TYPE, PROPS_TYPE_SERIALIZABLE)
+    putParcelable(ARG_PROPS, this)
+}
 
 inline fun <reified T : Parcelable> Controller.getProps(): T {
-    val props: T? = args.getParcelable(ARG_PROPS)
-    check(props != null) { "Props must be set first with Percelable.toPropsBundle()" }
+    val propsType = args.get(ARG_PROPS_TYPE)
+    val props: T? = if (propsType == PROPS_TYPE_PARCEL) {
+        args.getParcelable(ARG_PROPS)
+    } else {
+        args.getSerializable(ARG_PROPS).let { it as T? }
+    }
+    check(props != null) { "Props must be set first with Parcelable.toPropsBundle() or Serializeable.toPropsBundle()" }
     return props!!
 }
 
