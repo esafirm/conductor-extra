@@ -5,6 +5,7 @@ import android.os.Parcelable
 import android.view.View
 import android.widget.Toast
 import com.esafirm.conductorextra.onEvent
+import com.esafirm.sample.Logger
 import com.esafirm.sample.R
 import io.reactivex.Single
 import io.reactivex.functions.Consumer
@@ -53,36 +54,44 @@ class SamplePresenter(private val tickingValueData: TickingValueData) : Presente
     override fun bind(lifecycleOwner: LifecycleOwner) {
         tickingValueData.setInitialValue(stateSubject.value.tickingValue)
         tickingValueData.subscribe(lifecycleOwner, Consumer { value ->
-            changeState {
+            setState {
                 it.copy(tickingValue = value)
             }
         })
     }
 
-    fun increment() = changeState {
+    fun increment() = setState {
         it.copy(count = it.count + 1)
     }
 
-    fun decrement() = changeState {
+    fun decrement() = setState {
         it.copy(count = it.count - 1)
     }
 
-    fun reset() = changeState {
+    fun reset() = setState {
         it.copy(count = 0)
     }
 
-    fun triggerError() = changeState {
+    fun triggerError() = setState {
         it.copy(errorMessage = "This is a sample error".asSingleEvent())
     }
 
-    private fun showProgress(show: Boolean) = changeState {
+    private fun showProgress(show: Boolean) = setState {
         it.copy(isLoading = show)
     }
 
-    fun asyncIncrement() = Single.timer(5, TimeUnit.SECONDS)
-            .doOnSubscribe { showProgress(true) }
-            .doOnDispose { showProgress(false) }
-            .subscribe { _, _ -> increment() }!!
+    fun syncInrecement() = setState {
+        Thread.sleep(2000)
+        it.copy(count = it.count + 1)
+    }
+
+    fun asyncIncrement() {
+        Single.timer(5, TimeUnit.SECONDS)
+                .doOnSubscribe { showProgress(true) }
+                .doFinally { showProgress(false) }
+                .doOnDispose { Logger.log("onDispose") }
+                .subscribe { _, _ -> increment() }
+    }
 }
 
 open class SampleStateScreen : StatefulScreen<SampleState, SamplePresenter>() {
@@ -102,6 +111,7 @@ open class SampleStateScreen : StatefulScreen<SampleState, SamplePresenter>() {
         btn_add.setOnClickListener { presenter.increment() }
         btn_subtract.setOnClickListener { presenter.decrement() }
         btn_add_async.setOnClickListener { presenter.asyncIncrement() }
+        btn_add_sync.setOnClickListener { presenter.syncInrecement() }
 
         progress.setOnClickListener { presenter.triggerError() }
         progress.visibility = if (state.isLoading) View.VISIBLE else View.GONE

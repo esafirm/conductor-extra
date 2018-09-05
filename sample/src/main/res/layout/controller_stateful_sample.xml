@@ -50,4 +50,10 @@
         android:layout_height="wrap_content"
         android:text="Add Async"/>
 
+    <Button
+        android:id="@+id/btn_add_sync"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Sync Async"/>
+
 </LinearLayout>
