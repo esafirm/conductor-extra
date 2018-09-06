@@ -55,9 +55,15 @@ class MainController : BinderController() {
 
                     setOnClickListener {
                         val withProps = random.nextBoolean()
+                        val withSerializeable = random.nextBoolean()
                         if (withProps) {
+
+
                             router.pushController(Routes.simpleTransaction(
-                                    DetailWithPropsController(DetailProps("https://unsplash.it/200/300", "Hello world!")),
+                                    when (withSerializeable) {
+                                        true -> DetailWithPropsController(DetailPropsSerializeable("https://unsplash.it/200/300", "Hello world!"))
+                                        false -> DetailWithPropsController(DetailProps("https://unsplash.it/200/300", "Hello world!"))
+                                    },
                                     VerticalChangeHandler()
                             ))
                         } else {
@@ -68,7 +74,7 @@ class MainController : BinderController() {
                         }
                         Toast.makeText(
                                 applicationContext,
-                                "Show with props: $withProps",
+                                "Show with props: $withProps\nShow with serializeable: $withSerializeable",
                                 Toast.LENGTH_SHORT
                         ).show()
                     }

@@ -15,24 +15,31 @@ const val ARG_PROPS: String = "Argument.Props"
 const val PROPS_TYPE_PARCEL = 1
 const val PROPS_TYPE_SERIALIZABLE = 2
 
-fun Parcelable.toPropsBundle(): Bundle = Bundle().apply {
-    putInt(ARG_PROPS_TYPE, PROPS_TYPE_PARCEL)
-    putParcelable(ARG_PROPS, this)
+fun Parcelable.toPropsBundle(): Bundle {
+    val parcel = this
+    return Bundle().apply {
+        putInt(ARG_PROPS_TYPE, PROPS_TYPE_PARCEL)
+        putParcelable(ARG_PROPS, parcel)
+    }
 }
 
-fun Serializable.toPropsBundle(): Bundle = Bundle().apply {
-    putInt(ARG_PROPS_TYPE, PROPS_TYPE_SERIALIZABLE)
-    putParcelable(ARG_PROPS, this)
+fun Serializable.toPropsBundle(): Bundle {
+    val serializable = this
+    return Bundle().apply {
+        putInt(ARG_PROPS_TYPE, PROPS_TYPE_SERIALIZABLE)
+        putSerializable(ARG_PROPS, serializable)
+    }
 }
 
-inline fun <reified T : Parcelable> Controller.getProps(): T {
+inline fun <reified T> Controller.getProps(): T {
     val propsType = args.get(ARG_PROPS_TYPE)
     val props: T? = if (propsType == PROPS_TYPE_PARCEL) {
-        args.getParcelable(ARG_PROPS)
+        val parcel: Parcelable? = args.getParcelable(ARG_PROPS)
+        parcel as T?
     } else {
-        args.getSerializable(ARG_PROPS).let { it as T? }
+        args.getSerializable(ARG_PROPS) as T?
     }
-    check(props != null) { "Props must be set first with Parcelable.toPropsBundle() or Serializeable.toPropsBundle()" }
+    check(props != null) { "Props must be set first with Parcelable.toPropsBundle() or Serializable.toPropsBundle()" }
     return props!!
 }
 

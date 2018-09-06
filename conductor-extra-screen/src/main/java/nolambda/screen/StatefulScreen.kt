@@ -8,7 +8,6 @@ import io.reactivex.functions.Consumer
 
 abstract class StatefulScreen<STATE, PRESENTER : Presenter<STATE>> : BaseScreen {
 
-
     protected var stateTransformer: ObservableTransformer<STATE, STATE>? = null
 
     // Presenter that exposed

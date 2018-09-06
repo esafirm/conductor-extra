@@ -80,7 +80,7 @@ class SamplePresenter(private val tickingValueData: TickingValueData) : Presente
         it.copy(isLoading = show)
     }
 
-    fun syncInrecement() = setState {
+    fun syncIncrement() = setState {
         Thread.sleep(2000)
         it.copy(count = it.count + 1)
     }
@@ -111,7 +111,7 @@ open class SampleStateScreen : StatefulScreen<SampleState, SamplePresenter>() {
         btn_add.setOnClickListener { presenter.increment() }
         btn_subtract.setOnClickListener { presenter.decrement() }
         btn_add_async.setOnClickListener { presenter.asyncIncrement() }
-        btn_add_sync.setOnClickListener { presenter.syncInrecement() }
+        btn_add_sync.setOnClickListener { presenter.syncIncrement() }
 
         progress.setOnClickListener { presenter.triggerError() }
         progress.visibility = if (state.isLoading) View.VISIBLE else View.GONE
