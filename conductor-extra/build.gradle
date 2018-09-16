@@ -28,7 +28,7 @@ dependencies {
     api "com.android.support:appcompat-v7:${rootProject.ext.libs.support}"
 
     /* Conductor */
-    api 'com.bluelinelabs:conductor:2.1.4'
+    api 'com.bluelinelabs:conductor:2.1.5'
 
     testImplementation 'junit:junit:4.12'
 }
