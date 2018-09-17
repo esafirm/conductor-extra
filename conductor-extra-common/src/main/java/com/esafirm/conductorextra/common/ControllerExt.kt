@@ -1,4 +1,4 @@
-package com.esafirm.conductorextra
+package com.esafirm.conductorextra.common
 
 import android.content.Context
 import android.os.Bundle
@@ -6,7 +6,6 @@ import android.view.View
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
-import com.esafirm.conductorextra.transaction.Routes
 
 fun Controller.callWhenReady(onReady: Controller.() -> Unit) =
         addLifecycleListener(object : Controller.LifecycleListener() {
@@ -39,114 +38,116 @@ fun Controller.showDialog(childRouter: Router, controller: Controller) {
 /* --------------------------------------------------- */
 
 typealias LifecycleRemover = () -> Unit
-typealias Callback<P1, P2> = (P1, P2, LifecycleRemover) -> Unit
-typealias SingleCallback<P1> = (P1, LifecycleRemover) -> Unit
+typealias PairCallback<P> = (Pair<P, LifecycleRemover>) -> Unit
+typealias SingleCallback = (LifecycleRemover) -> Unit
 
 fun Controller.onEvent(
 
-        onPreContextAvailable: SingleCallback<Controller>? = null,
-        onPostContextAvailable: SingleCallback<Controller>? = null,
+        onPreContextAvailable: SingleCallback? = null,
+        onPostContextAvailable: SingleCallback? = null,
 
-        onPreContextUnavailable: SingleCallback<Controller>? = null,
-        onPostContextUnavalable: SingleCallback<Controller>? = null,
+        onPreContextUnavailable: PairCallback<Context>? = null,
+        onPostContextUnavalable: SingleCallback? = null,
 
-        onPreCreateView: SingleCallback<Controller>? = null,
-        onPostCreateView: Callback<Controller, View>? = null,
+        onPreCreateView: SingleCallback? = null,
+        onPostCreateView: SingleCallback? = null,
 
-        onPreDestroy: SingleCallback<Controller>? = null,
-        onPostDestroy: SingleCallback<Controller>? = null,
+        onPreDestroy: SingleCallback? = null,
+        onPostDestroy: SingleCallback? = null,
 
-        onPreDestroyView: Callback<Controller, View>? = null,
-        onPostDestroyView: SingleCallback<Controller>? = null,
+        onPreDestroyView: SingleCallback? = null,
+        onPostDestroyView: SingleCallback? = null,
 
-        onPreAttach: Callback<Controller, View>? = null,
-        onPostAttach: Callback<Controller, View>? = null,
+        onPreAttach: SingleCallback? = null,
+        onPostAttach: SingleCallback? = null,
 
-        onPostDetach: Callback<Controller, View>? = null,
-        onPreDetach: Callback<Controller, View>? = null,
+        onPostDetach: SingleCallback? = null,
+        onPreDetach: SingleCallback? = null,
 
-        onSaveInstanceState: Callback<Controller, Bundle>? = null,
-        onRestoreInstanceState: Callback<Controller, Bundle>? = null,
+        onSaveInstanceState: PairCallback<Bundle>? = null,
+        onRestoreInstanceState: PairCallback<Bundle>? = null,
 
-        onSaveViewState: Callback<Controller, Bundle>? = null,
-        onRestoreViewState: Callback<Controller, Bundle>? = null
+        onSaveViewState: PairCallback<Bundle>? = null,
+        onRestoreViewState: PairCallback<Bundle>? = null
 
 ): Controller.LifecycleListener {
 
     val listener = object : Controller.LifecycleListener() {
 
-        private val remover: LifecycleRemover = { removeLifecycleListener(this) }
+        private val remover: LifecycleRemover by lazy(LazyThreadSafetyMode.NONE) {
+            { removeLifecycleListener(this) }
+        }
 
         override fun preContextAvailable(controller: Controller) {
-            onPreContextAvailable?.invoke(controller, remover)
+            onPreContextAvailable?.invoke(remover)
         }
 
         override fun postContextAvailable(controller: Controller, context: Context) {
-            onPostContextAvailable?.invoke(controller, remover)
+            onPostContextAvailable?.invoke(remover)
         }
 
         override fun preContextUnavailable(controller: Controller, context: Context) {
-            onPreContextUnavailable?.invoke(controller, remover)
+            onPreContextUnavailable?.invoke(context to remover)
         }
 
         override fun postContextUnavailable(controller: Controller) {
-            onPostContextUnavalable?.invoke(controller, remover)
+            onPostContextUnavalable?.invoke(remover)
         }
 
         override fun preCreateView(controller: Controller) {
-            onPreCreateView?.invoke(controller, remover)
+            onPreCreateView?.invoke(remover)
         }
 
         override fun postCreateView(controller: Controller, view: View) {
-            onPostCreateView?.invoke(controller, view, remover)
+            onPostCreateView?.invoke(remover)
         }
 
         override fun onSaveViewState(controller: Controller, outState: Bundle) {
-            onSaveViewState?.invoke(controller, outState, remover)
+            onSaveViewState?.invoke(outState to remover)
         }
 
         override fun onRestoreViewState(controller: Controller, savedViewState: Bundle) {
-            onRestoreViewState?.invoke(controller, savedViewState, remover)
+            onRestoreViewState?.invoke(savedViewState to remover)
         }
 
         override fun onRestoreInstanceState(controller: Controller, savedInstanceState: Bundle) {
-            onRestoreInstanceState?.invoke(controller, savedInstanceState, remover)
+            onRestoreInstanceState?.invoke(savedInstanceState to remover)
         }
 
         override fun onSaveInstanceState(controller: Controller, outState: Bundle) {
-            onSaveInstanceState?.invoke(controller, outState, remover)
+            onSaveInstanceState?.invoke(outState to remover)
         }
 
         override fun preAttach(controller: Controller, view: View) {
-            onPreAttach?.invoke(controller, view, remover)
+            onPreAttach?.invoke(remover)
         }
 
         override fun postAttach(controller: Controller, view: View) {
-            onPostAttach?.invoke(controller, view, remover)
+            onPostAttach?.invoke(remover)
         }
 
         override fun preDetach(controller: Controller, view: View) {
-            onPreDetach?.invoke(controller, view, remover)
+            onPreDetach?.invoke(remover)
         }
 
         override fun postDetach(controller: Controller, view: View) {
-            onPostDetach?.invoke(controller, view, remover)
+            onPostDetach?.invoke(remover)
         }
 
         override fun preDestroy(controller: Controller) {
-            onPreDestroy?.invoke(controller, remover)
+            onPreDestroy?.invoke(remover)
         }
 
         override fun postDestroy(controller: Controller) {
-            onPostDestroy?.invoke(controller, remover)
+            onPostDestroy?.invoke(remover)
         }
 
         override fun preDestroyView(controller: Controller, view: View) {
-            onPreDestroyView?.invoke(controller, view, remover)
+            onPreDestroyView?.invoke(remover)
         }
 
         override fun postDestroyView(controller: Controller) {
-            onPostDestroyView?.invoke(controller, remover)
+            onPostDestroyView?.invoke(remover)
         }
     }
     addLifecycleListener(listener)

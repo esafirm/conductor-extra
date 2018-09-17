@@ -7,8 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
 import com.esafirm.conductorextra.butterknife.BinderController
-import com.esafirm.conductorextra.getProps
-import com.esafirm.conductorextra.toPropsBundle
+import com.esafirm.conductorextra.common.getProps
+import com.esafirm.conductorextra.common.toPropsBundle
 import com.squareup.picasso.Picasso
 
 class DetailWithPropsController(bundle: Bundle) : BinderController(bundle) {
@@ -23,8 +23,6 @@ class DetailWithPropsController(bundle: Bundle) : BinderController(bundle) {
             container.inflate(R.layout.controller_detail_with_props)
 
     override fun onViewBound(bindingResult: View, savedState: Bundle?) {
-        getProps<String>()
-
         val props = try {
             getProps<DetailProps>()
         } catch (e: Exception) {

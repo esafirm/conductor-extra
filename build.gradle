@@ -18,7 +18,8 @@ ext {
             targetSdk : 27
     ]
     libs = [
-            support: '27.1.1'
+            support  : '27.1.1',
+            conductor: '2.1.5'
     ]
 }
 

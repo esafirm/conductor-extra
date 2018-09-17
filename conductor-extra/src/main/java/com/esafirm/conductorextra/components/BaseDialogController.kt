@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.esafirm.conductorextra.R
-import com.esafirm.conductorextra.popCurrentController
+import com.esafirm.conductorextra.common.popCurrentController
 
 abstract class BaseDialogController<BindingResult> : BaseController<BindingResult> {
 

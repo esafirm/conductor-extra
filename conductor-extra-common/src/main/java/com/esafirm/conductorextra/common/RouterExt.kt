@@ -1,11 +1,10 @@
-package com.esafirm.conductorextra
+package com.esafirm.conductorextra.common
 
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.VerticalChangeHandler
-import com.esafirm.conductorextra.transaction.Routes
 
 fun Router.getTopController(): Controller =
         backstack[backstackSize - 1].controller()

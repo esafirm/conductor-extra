@@ -24,7 +24,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api project(':conductor-extra-common')
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "com.android.support:appcompat-v7:${rootProject.ext.libs.support}"
 
-    testImplementation 'junit:junit:4.12'
+    /* Conductor */
+    api "com.bluelinelabs:conductor:${rootProject.ext.libs.conductor}"
 }

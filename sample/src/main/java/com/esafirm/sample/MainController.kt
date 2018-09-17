@@ -8,9 +8,9 @@ import android.widget.Toast
 import butterknife.BindView
 import com.bluelinelabs.conductor.changehandler.VerticalChangeHandler
 import com.esafirm.conductorextra.butterknife.BinderController
-import com.esafirm.conductorextra.pushTo
-import com.esafirm.conductorextra.showDialog
-import com.esafirm.conductorextra.transaction.Routes
+import com.esafirm.conductorextra.common.Routes
+import com.esafirm.conductorextra.common.pushTo
+import com.esafirm.conductorextra.common.showDialog
 import com.esafirm.sample.listener.TextReceiverController
 import com.esafirm.sample.ovb.OnViewBoundTestController
 import com.esafirm.sample.screen.SampleDiskStateSaver

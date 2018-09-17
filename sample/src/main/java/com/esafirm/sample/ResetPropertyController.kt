@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import butterknife.BindView
-import com.esafirm.conductorextra.onEvent
 import com.esafirm.conductorextra.butterknife.BinderController
+import com.esafirm.conductorextra.common.onEvent
 import com.esafirm.conductorextra.utils.resetOnDetach
 
 class ResetPropertyController : BinderController() {
@@ -28,7 +28,7 @@ class ResetPropertyController : BinderController() {
         txtInfo.text = stringLoader.load()
 
         // Should throw error after detachment!!
-        onEvent(onPostDetach = { _, _, remover ->
+        onEvent(onPostDetach = { remover ->
             txtInfo.text = try {
                 stringLoader.load()
             } catch (e: Exception) {

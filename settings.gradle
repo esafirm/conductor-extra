@@ -1,4 +1,4 @@
-include ':conductor-extra',
+include ':conductor-extra', ':conductor-extra-common',
         ':conductor-extra-butterknife',
         ':conductor-extra-databinding',
         ':conductor-extra-listener',

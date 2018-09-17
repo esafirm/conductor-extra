@@ -9,8 +9,8 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.esafirm.conductorextra.butterknife.BinderController
-import com.esafirm.conductorextra.listener.onEvent
-import com.esafirm.conductorextra.pushTo
+import com.esafirm.conductorextra.common.pushTo
+import com.esafirm.conductorextra.listener.listen
 
 class TextReceiverController : BinderController() {
 
@@ -36,10 +36,10 @@ class TextReceiverController : BinderController() {
                     addView(textView)
                     addView(Button(context).apply {
                         text = "Get Title"
-                        setOnClickListener {
+                        setOnClickListener { _ ->
                             getChildRouter(child!!)
                                     .pushTo(TextPickerController(), popLastView = true)
-                                    .onEvent<String> {
+                                    .listen<String> {
                                         Log.d("TextView", "$textView")
                                         Log.d("Conductor bus", "Value $it")
                                         textView.text = it

@@ -1,7 +1,7 @@
 package com.esafirm.conductorextra.utils
 
 import com.bluelinelabs.conductor.Controller
-import com.esafirm.conductorextra.onEvent
+import com.esafirm.conductorextra.common.onEvent
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -13,13 +13,10 @@ class ControllerProp<T : Any>(controller: Controller, private val event: Control
     init {
         when (event) {
             ControllerEvent.POST_DESTROY_VIEW -> {
-                controller.onEvent(onPostDestroyView = { _, _ -> value = null })
+                controller.onEvent(onPostDestroyView = { _ -> value = null })
             }
             ControllerEvent.POST_DETACH -> {
-                controller.onEvent(onPostDetach = { _, _, _ -> value = null })
-            }
-            else -> {
-                // NO-OP
+                controller.onEvent(onPostDetach = { _ -> value = null })
             }
         }
     }

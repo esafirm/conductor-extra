@@ -1,7 +1,7 @@
 package nolambda.screen
 
 import android.os.Bundle
-import com.esafirm.conductorextra.onEvent
+import com.esafirm.conductorextra.common.onEvent
 
 abstract class Screen : BaseScreen {
 
@@ -9,7 +9,7 @@ abstract class Screen : BaseScreen {
     constructor(args: Bundle?) : super(args)
 
     init {
-        onEvent(onPostAttach = { _, _, _ -> render() })
+        onEvent(onPostAttach = { _ -> render() })
     }
 
     abstract fun render()

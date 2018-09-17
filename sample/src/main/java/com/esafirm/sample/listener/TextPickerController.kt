@@ -8,8 +8,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import com.esafirm.conductorextra.butterknife.BinderController
-import com.esafirm.conductorextra.listener.postEvent
-import com.esafirm.conductorextra.popCurrentController
+import com.esafirm.conductorextra.common.popCurrentController
+import com.esafirm.conductorextra.listener.postToListener
 
 class TextPickerController : BinderController() {
 
@@ -33,7 +33,7 @@ class TextPickerController : BinderController() {
                             ViewGroup.LayoutParams.WRAP_CONTENT
                     )
                     setOnClickListener {
-                        postEvent(editText.text.toString())
+                        postToListener(editText.text.toString())
                         popCurrentController()
                     }
                 })

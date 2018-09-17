@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.BindView
 import com.esafirm.conductorextra.butterknife.BinderController
-import com.esafirm.conductorextra.pushTo
+import com.esafirm.conductorextra.common.pushTo
 import com.esafirm.sample.Logger
 import com.esafirm.sample.R
 import com.esafirm.sample.utils.Counter

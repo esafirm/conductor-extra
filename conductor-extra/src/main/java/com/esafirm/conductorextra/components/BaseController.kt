@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bluelinelabs.conductor.RestoreViewOnCreateController
+import com.esafirm.conductorextra.common.markSavedState
+import com.esafirm.conductorextra.common.onEvent
 import com.esafirm.conductorextra.components.configs.ControllerConfigManager
-import com.esafirm.conductorextra.markSavedState
-import com.esafirm.conductorextra.onEvent
 
 abstract class BaseController<BindingResult> : RestoreViewOnCreateController {
 
@@ -21,8 +21,8 @@ abstract class BaseController<BindingResult> : RestoreViewOnCreateController {
 
     init {
         val config = ControllerConfigManager.configResolver(javaClass)
-        onEvent(onSaveViewState = { _, outState, _ -> outState.markSavedState() })
-        onEvent(onPreCreateView = { _, remover ->
+        onEvent(onSaveViewState = { (outState, _) -> outState.markSavedState() })
+        onEvent(onPreCreateView = { remover ->
             onSetupComponent()
             if (config.injectOnce) {
                 remover()
@@ -48,7 +48,7 @@ abstract class BaseController<BindingResult> : RestoreViewOnCreateController {
             getLayoutView(container).also { bindView(it, savedViewState) }
 
     protected open fun bindView(view: View, savedViewState: Bundle?) {
-        onEvent(onPreAttach = { _, _, remover ->
+        onEvent(onPreAttach = { remover ->
             onViewBound(getBinder().bind(view), savedViewState)
             remover()
         })

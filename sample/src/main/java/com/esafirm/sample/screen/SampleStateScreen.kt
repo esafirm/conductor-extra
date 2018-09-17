@@ -4,9 +4,12 @@ import android.arch.lifecycle.LifecycleOwner
 import android.os.Parcelable
 import android.view.View
 import android.widget.Toast
-import com.esafirm.conductorextra.onEvent
+import com.esafirm.conductorextra.common.onEvent
+import com.esafirm.conductorextra.common.pushTo
+import com.esafirm.conductorextra.listener.listen
 import com.esafirm.sample.Logger
 import com.esafirm.sample.R
+import com.esafirm.sample.listener.TextPickerController
 import io.reactivex.Single
 import io.reactivex.functions.Consumer
 import kotlinx.android.parcel.Parcelize
@@ -33,7 +36,7 @@ class TickingValueData : StateSubject<Int>() {
                 value += 1
                 postValue(value)
             }
-        }, 1000L, 1000L)
+        }, 0L, 1000L)
     }
 
     override fun onInactive() {
@@ -45,7 +48,8 @@ class TickingValueData : StateSubject<Int>() {
 data class SampleState(val count: Int = 0,
                        val isLoading: Boolean = false,
                        val errorMessage: @RawValue SingleEvent<String>? = null,
-                       val tickingValue: Int = 0) : Parcelable
+                       val tickingValue: Int = 0,
+                       val tickingValueCaption: String = "Ticking Value: ") : Parcelable
 
 class SamplePresenter(private val tickingValueData: TickingValueData) : Presenter<SampleState>() {
 
@@ -92,6 +96,10 @@ class SamplePresenter(private val tickingValueData: TickingValueData) : Presente
                 .doOnDispose { Logger.log("onDispose") }
                 .subscribe { _, _ -> increment() }
     }
+
+    fun setTickingValueCaption(caption: String) = setState {
+        it.copy(tickingValueCaption = caption)
+    }
 }
 
 open class SampleStateScreen : StatefulScreen<SampleState, SamplePresenter>() {
@@ -101,8 +109,19 @@ open class SampleStateScreen : StatefulScreen<SampleState, SamplePresenter>() {
         screenPresenter = { SamplePresenter(TickingValueData()) }
     }
 
+    private fun renderPicker(presenter: SamplePresenter, state: SampleState) {
+        txt_ticking.text = "${state.tickingValueCaption}${state.tickingValue}"
+        txt_ticking.setOnClickListener { _ ->
+            router.pushTo(TextPickerController().apply {
+                listen<String> {
+                    presenter.setTickingValueCaption(it)
+                }
+            })
+        }
+    }
+
     override fun render(presenter: SamplePresenter, state: SampleState) {
-        txt_ticking.text = "Ticking value: ${state.tickingValue}"
+        renderPicker(presenter, state)
 
         txt_yeah.text = "Counter: ${state.count}"
         txt_yeah.setOnClickListener { presenter.increment() }
@@ -130,7 +149,7 @@ class SampleLazyStateScreen : SampleStateScreen() {
         screenView = xml(R.layout.controller_stateful_sample)
         screenPresenter = { presenter }
 
-        onEvent(onPreContextAvailable = { _, remover ->
+        onEvent(onPreContextAvailable = { remover ->
             presenter = SamplePresenter(TickingValueData())
             remover()
         })
@@ -146,7 +165,7 @@ class SampleDiskStateSaver : SampleStateScreen() {
         screenView = xml(R.layout.controller_stateful_sample)
         screenPresenter = { presenter }
 
-        onEvent(onPreContextAvailable = { _, remover ->
+        onEvent(onPreContextAvailable = { remover ->
             presenter = SamplePresenter(TickingValueData())
             remover()
         })

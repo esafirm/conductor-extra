@@ -2,7 +2,7 @@ package nolambda.screen
 
 import android.content.Context
 import android.os.Bundle
-import com.esafirm.conductorextra.onEvent
+import com.esafirm.conductorextra.common.onEvent
 import io.reactivex.ObservableTransformer
 import io.reactivex.functions.Consumer
 
@@ -13,7 +13,13 @@ abstract class StatefulScreen<STATE, PRESENTER : Presenter<STATE>> : BaseScreen 
     // Presenter that exposed
     protected lateinit var screenPresenter: () -> PRESENTER
     // Presenter to use internally
-    private val presenterInternal by lazy { screenPresenter() }
+    private val presenterInternal by lazy {
+        if (::screenPresenter.isInitialized.not()) {
+            throw IllegalStateException("Aw shoot! You haven't initialize your [screenPresenter] in your Screen. " +
+                    "You can initialize it like this `screenPresenter = { MyPresenter() }`")
+        }
+        screenPresenter()
+    }
 
     protected lateinit var stateSaver: () -> StateSaver<STATE>
     private val defaultStateSaver by lazy { DefaultStateSaver<STATE>() }
@@ -36,11 +42,12 @@ abstract class StatefulScreen<STATE, PRESENTER : Presenter<STATE>> : BaseScreen 
     }
 
     init {
-        onEvent(onPostCreateView = { _, _, remover ->
+        onEvent(onPostCreateView = { remover ->
             presenterInternal.bind(this)
             presenterInternal.stateSubject.subscribe(this, stateTransformer, Consumer {
                 render(presenterInternal, it)
             })
+            presenterInternal.initPresenter()
             remover()
         })
     }
