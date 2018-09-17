@@ -38,7 +38,7 @@ artifacts {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api 'nolambda.stream:statesubject:1.0.1'
-    api project(':conductor-extra')
+    api project(':conductor-extra-common')
 
     // This is only added because we want to create DefaultDiskStateSaver
     api 'com.orhanobut:hawk:2.0.1'

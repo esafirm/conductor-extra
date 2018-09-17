@@ -8,10 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bluelinelabs.conductor.Controller
-import com.esafirm.conductorextra.R
 import com.esafirm.conductorextra.common.popCurrentController
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.*
+import soundboard.nolambda.conductor_extra_screen.R
 
 typealias ScreenViewProvider = ((LayoutInflater, ViewGroup) -> View)
 
