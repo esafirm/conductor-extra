@@ -9,7 +9,12 @@ abstract class Screen : BaseScreen {
     constructor(args: Bundle?) : super(args)
 
     init {
-        onEvent(onPostAttach = { _ -> render() })
+        onEvent(onPostAttach = { _ -> render() }, onPostCreateView = { _ -> initView() })
+    }
+
+    /** This function called after [onCreateView] **/
+    protected fun initView() {
+        // NO-OP
     }
 
     abstract fun render()
