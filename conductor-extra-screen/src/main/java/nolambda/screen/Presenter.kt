@@ -1,5 +1,6 @@
 package nolambda.screen
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.LifecycleOwner
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
@@ -24,7 +25,7 @@ abstract class Presenter<State> {
 
     protected abstract fun initialState(): State
 
-    protected fun setState(async: Boolean = true, mutator: StateMutator<State>) {
+    fun setState(async: Boolean = true, mutator: StateMutator<State>) {
         if (async) {
             postAsyncValue(mutator)
         } else {
@@ -32,6 +33,7 @@ abstract class Presenter<State> {
         }
     }
 
+    @SuppressLint("CheckResult")
     private fun postAsyncValue(mutator: StateMutator<State>) {
         if (!alreadyListenInternalQueue) {
             alreadyListenInternalQueue = true
@@ -39,8 +41,10 @@ abstract class Presenter<State> {
                     .subscribeOn(Schedulers.from(executors))
                     .observeOn(Schedulers.from(executors))
                     .map { it.invoke(stateSubject.value) }
-                    .subscribe {
-                        stateSubject.postValue(it)
+                    .subscribe { newState ->
+                        if (newState != stateSubject.value) {
+                            stateSubject.postValue(newState)
+                        }
                     }
         }
         internalQueue.onNext(mutator)

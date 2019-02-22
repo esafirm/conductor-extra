@@ -15,7 +15,8 @@ private val bus = PublishRelay.create<Any>().toSerialized()
 private val listenerMap: MutableMap<Controller, Boolean> = mutableMapOf()
 
 fun Controller.postToListener(any: Any) {
-    bus.accept(NamedEvent(this.javaClass.canonicalName, any))
+    val name = this.javaClass.canonicalName ?: this.javaClass.simpleName
+    bus.accept(NamedEvent(name, any))
 }
 
 @Suppress("UNCHECKED_CAST")

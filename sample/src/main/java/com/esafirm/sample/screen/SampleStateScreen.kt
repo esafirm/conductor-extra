@@ -104,14 +104,12 @@ class SamplePresenter(private val tickingValueData: TickingValueData) : Presente
 
 open class SampleStateScreen : StatefulScreen<SampleState, SamplePresenter>() {
 
-    init {
-        screenView = xml(R.layout.controller_stateful_sample)
-        screenPresenter = { SamplePresenter(TickingValueData()) }
-    }
+    override fun createView() = xml(R.layout.controller_stateful_sample)
+    override fun createPresenter() = SamplePresenter(TickingValueData())
 
     private fun renderPicker(presenter: SamplePresenter, state: SampleState) {
         txt_ticking.text = "${state.tickingValueCaption}${state.tickingValue}"
-        txt_ticking.setOnClickListener { _ ->
+        txt_ticking.setOnClickListener {
             router.pushTo(TextPickerController().apply {
                 listen<String> {
                     presenter.setTickingValueCaption(it)
@@ -135,7 +133,7 @@ open class SampleStateScreen : StatefulScreen<SampleState, SamplePresenter>() {
         progress.setOnClickListener { presenter.triggerError() }
         progress.visibility = if (state.isLoading) View.VISIBLE else View.GONE
 
-        state.errorMessage?.run {
+        state.errorMessage?.fetch {
             Toast.makeText(activity?.applicationContext, this, Toast.LENGTH_SHORT).show()
         }
     }
@@ -145,10 +143,10 @@ class SampleLazyStateScreen : SampleStateScreen() {
 
     private lateinit var presenter: SamplePresenter
 
-    init {
-        screenView = xml(R.layout.controller_stateful_sample)
-        screenPresenter = { presenter }
+    override fun createView() = xml(R.layout.controller_stateful_sample)
+    override fun createPresenter() = presenter
 
+    init {
         onEvent(onPreContextAvailable = { remover ->
             presenter = SamplePresenter(TickingValueData())
             remover()
@@ -162,12 +160,12 @@ class SampleDiskStateSaver : SampleStateScreen() {
 
     init {
         stateSaver = { DefaultDiskStateSaver(activity!!) }
-        screenView = xml(R.layout.controller_stateful_sample)
-        screenPresenter = { presenter }
-
         onEvent(onPreContextAvailable = { remover ->
             presenter = SamplePresenter(TickingValueData())
             remover()
         })
     }
+
+    override fun createPresenter() = presenter
+    override fun createView() = xml(R.layout.controller_stateful_sample)
 }

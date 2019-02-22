@@ -8,15 +8,14 @@ import android.widget.TextView
 import com.bluelinelabs.conductor.RouterTransaction
 import com.esafirm.sample.R
 import nolambda.screen.Screen
+import nolambda.screen.ScreenViewProvider
 import java.util.*
 
 class SimpleTextScreen : Screen() {
 
     private val random = Random()
 
-    init {
-        screenView = { _, group -> TextView(group.context) }
-    }
+    override fun createView(): ScreenViewProvider = { _, group -> TextView(group.context) }
 
     override fun render() {
         val text = view as TextView

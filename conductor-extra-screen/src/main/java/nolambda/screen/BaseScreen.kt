@@ -19,7 +19,7 @@ abstract class BaseScreen : Controller, LifecycleOwner, LayoutContainer {
 
     override val containerView: View? get() = view
 
-    protected lateinit var screenView: ScreenViewProvider
+    abstract fun createView(): ScreenViewProvider
 
     /* Lifecycle */
     private val lifecycle by lazy { ControllerLifecycleRegistryOwner(this).lifecycle }
@@ -31,11 +31,7 @@ abstract class BaseScreen : Controller, LifecycleOwner, LayoutContainer {
     constructor(args: Bundle?) : super(args)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-        if (::screenView.isInitialized.not()) {
-            throw IllegalStateException("You haven't assign [screenView] in your Screen." +
-                    " Please refer to [BaseScreen.xml] or [BaseScreen.dialog] for starter.")
-        }
-        return screenView(inflater, container)
+        return createView()(inflater, container)
     }
 
     override fun onDestroyView(view: View) {

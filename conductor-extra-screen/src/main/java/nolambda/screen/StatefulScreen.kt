@@ -8,30 +8,24 @@ import io.reactivex.functions.Consumer
 
 abstract class StatefulScreen<STATE, PRESENTER : Presenter<STATE>> : BaseScreen {
 
-    protected var stateTransformer: ObservableTransformer<STATE, STATE>? = null
+    protected open var stateTransformer: ObservableTransformer<STATE, STATE>? = null
 
     // Presenter that exposed
-    protected lateinit var screenPresenter: () -> PRESENTER
+    abstract fun createPresenter(): PRESENTER
+
     // Presenter to use internally
-    private val presenterInternal by lazy {
-        if (::screenPresenter.isInitialized.not()) {
-            throw IllegalStateException("Aw shoot! You haven't initialize your [screenPresenter] in your Screen. " +
-                    "You can initialize it like this `screenPresenter = { MyPresenter() }`")
-        }
-        screenPresenter()
-    }
+    private val presenterInternal by lazy { createPresenter() }
 
     protected lateinit var stateSaver: () -> StateSaver<STATE>
-    private val defaultStateSaver by lazy { DefaultStateSaver<STATE>() }
-    private val internalStateSaver by lazy {
+    private val stateSaverInternal by lazy {
         try {
             stateSaver()
         } catch (e: Exception) {
-            defaultStateSaver
+            DefaultStateSaver<STATE>()
         }
     }
 
-    private var deferredState: STATE? = null
+    private var deferredStateFunc: (() -> STATE?)? = null
 
     constructor() : super()
     constructor(bundle: Bundle?) : super(bundle)
@@ -54,17 +48,17 @@ abstract class StatefulScreen<STATE, PRESENTER : Presenter<STATE>> : BaseScreen 
 
     override fun onSaveInstanceState(outState: Bundle) {
         val state = presenterInternal.stateSubject.value
-        internalStateSaver.onSaveInstanceState(state, outState)
+        stateSaverInternal.onSaveInstanceState(state, outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        deferredState = internalStateSaver.onRestoreInstanceState(savedInstanceState)
+        deferredStateFunc = { stateSaverInternal.onRestoreInstanceState(savedInstanceState) }
     }
 
     private fun restoreStateIfNeeded() {
-        if (deferredState != null) {
-            screenPresenter().stateSubject.postValue(deferredState)
-            deferredState = null
+        deferredStateFunc?.let { deferredState ->
+            presenterInternal.setState { deferredState.invoke() ?: it }
+            deferredStateFunc = null
         }
     }
 

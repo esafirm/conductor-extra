@@ -1,14 +1,10 @@
 package com.esafirm.sample
 
-import paperparcel.PaperParcel
-import paperparcel.PaperParcelable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
-@PaperParcel
-data class DetailProps(val image: String, val caption: String) : PaperParcelable {
-    companion object {
-        @JvmField val CREATOR = PaperParcelDetailProps.CREATOR
-    }
-}
+@Parcelize
+data class DetailProps(val image: String, val caption: String) : Parcelable
 
 data class DetailPropsSerializeable(val image: String, val caption: String) : Serializable

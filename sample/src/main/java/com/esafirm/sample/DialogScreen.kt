@@ -7,10 +7,8 @@ import nolambda.screen.Screen
 
 class DialogScreen : Screen() {
 
-    init {
-        screenView = dialog(xml(R.layout.dialog_controller)) {
-            Toast.makeText(activity, "Toast", Toast.LENGTH_LONG).show()
-        }
+    override fun createView() = dialog(xml(R.layout.dialog_controller)) {
+        Toast.makeText(activity, "Toast", Toast.LENGTH_LONG).show()
     }
 
     override fun render() {
