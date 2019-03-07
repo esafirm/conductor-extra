@@ -64,6 +64,12 @@ class SamplePresenter(private val tickingValueData: TickingValueData) : Presente
         })
     }
 
+    override fun initPresenter() {
+        setState(async = true) {
+            it.copy(isLoading = true)
+        }
+    }
+
     fun increment() = setState {
         it.copy(count = it.count + 1)
     }

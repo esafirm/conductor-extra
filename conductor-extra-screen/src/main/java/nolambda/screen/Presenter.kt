@@ -11,9 +11,9 @@ internal typealias StateMutator<State> = (State) -> State
 
 abstract class Presenter<State> {
 
-    private val executors by lazy { Executors.newFixedThreadPool(1) }
+    private val executors by lazy { Executors.newSingleThreadExecutor() }
 
-    open val stateSubject: StateSubject<State> by lazy(LazyThreadSafetyMode.NONE) {
+    open val stateSubject: StateSubject<State> by lazy {
         StateSubject<State>().apply { postValue(initialState()) }
     }
 
@@ -37,17 +37,18 @@ abstract class Presenter<State> {
     private fun postAsyncValue(mutator: StateMutator<State>) {
         if (!alreadyListenInternalQueue) {
             alreadyListenInternalQueue = true
-            internalQueue
-                    .subscribeOn(Schedulers.from(executors))
+            internalQueue.subscribeOn(Schedulers.from(executors))
                     .observeOn(Schedulers.from(executors))
+                    .startWith(mutator)
                     .map { it.invoke(stateSubject.value) }
                     .subscribe { newState ->
                         if (newState != stateSubject.value) {
                             stateSubject.postValue(newState)
                         }
                     }
+        } else {
+            internalQueue.onNext(mutator)
         }
-        internalQueue.onNext(mutator)
     }
 
     open fun bind(lifecycleOwner: LifecycleOwner) {
