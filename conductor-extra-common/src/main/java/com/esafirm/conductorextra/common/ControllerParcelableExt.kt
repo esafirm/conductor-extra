@@ -31,6 +31,8 @@ fun Serializable.toPropsBundle(): Bundle {
     }
 }
 
+inline fun <reified T> Controller.getPropsLazy() = lazy { getProps<T>() }
+
 inline fun <reified T> Controller.getProps(): T {
     val propsType = args.get(ARG_PROPS_TYPE)
     val props: T? = if (propsType == PROPS_TYPE_PARCEL) {
@@ -40,7 +42,7 @@ inline fun <reified T> Controller.getProps(): T {
         args.getSerializable(ARG_PROPS) as T?
     }
     check(props != null) { "Props must be set first with Parcelable.toPropsBundle() or Serializable.toPropsBundle()" }
-    return props!!
+    return props
 }
 
 /* --------------------------------------------------- */
