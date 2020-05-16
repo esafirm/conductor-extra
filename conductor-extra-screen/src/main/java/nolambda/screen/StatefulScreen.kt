@@ -70,7 +70,7 @@ abstract class StatefulScreen<STATE, PRESENTER : Presenter<STATE>> : BaseScreen 
      * This can be handy if you want some interceptor logic or navigation logic
      * @return True if you want to [render]
      */
-    open fun onSideEffect(presenter: PRESENTER, state: STATE): Boolean = false
+    open fun onSideEffect(presenter: PRESENTER, state: STATE): Boolean = true
 
     abstract fun render(presenter: PRESENTER, state: STATE)
 }
