@@ -39,7 +39,10 @@ abstract class StatefulScreen<STATE, PRESENTER : Presenter<STATE>> : BaseScreen 
         onEvent(onPostCreateView = { remover ->
             presenterInternal.bind(this)
             presenterInternal.stateSubject.subscribe(this, stateTransformer, Consumer {
-                render(presenterInternal, it)
+                val shouldRender = onSideEffect(presenterInternal, it)
+                if (shouldRender) {
+                    render(presenterInternal, it)
+                }
             })
             presenterInternal.initPresenter()
             remover()
@@ -61,6 +64,13 @@ abstract class StatefulScreen<STATE, PRESENTER : Presenter<STATE>> : BaseScreen 
             deferredStateFunc = null
         }
     }
+
+    /**
+     * Executed before [render]
+     * This can be handy if you want some interceptor logic or navigation logic
+     * @return True if you want to [render]
+     */
+    open fun onSideEffect(presenter: PRESENTER, state: STATE): Boolean = false
 
     abstract fun render(presenter: PRESENTER, state: STATE)
 }
