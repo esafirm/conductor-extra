@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -11,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="#000"/>
+        android:textColor="#000" />
 
     <TextView
         android:id="@+id/txt_yeah"
@@ -19,41 +18,47 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Yeah!"
-        android:textSize="28sp"/>
+        android:textSize="28sp" />
 
     <ProgressBar
         android:id="@+id/progress"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/btn_reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reset Counter"/>
+        android:text="Reset Counter" />
 
     <Button
         android:id="@+id/btn_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"/>
+        android:text="Add" />
 
     <Button
         android:id="@+id/btn_subtract"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Subtract"/>
+        android:text="Subtract" />
 
     <Button
         android:id="@+id/btn_add_async"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Async"/>
+        android:text="Add Async" />
 
     <Button
         android:id="@+id/btn_add_sync"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Sync Async"/>
+        android:text="Add Sync Async" />
+
+    <Button
+        android:id="@+id/btn_navigate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Navigate (Test Retain View)" />
 
 </LinearLayout>

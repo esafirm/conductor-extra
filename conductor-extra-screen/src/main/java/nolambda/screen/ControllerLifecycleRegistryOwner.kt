@@ -15,6 +15,10 @@ class ControllerLifecycleRegistryOwner(controller: Controller) : Controller.Life
         lifecycleRegistry.handleLifecycleEvent(Event.ON_CREATE)
         lifecycleRegistry.markState(State.CREATED)
 
+        val isRetainView = {
+            controller.retainViewMode == Controller.RetainViewMode.RETAIN_DETACH
+        }
+
         controller.addLifecycleListener(object : Controller.LifecycleListener() {
             override fun preCreateView(controller: Controller) {
                 lifecycleRegistry.handleLifecycleEvent(Event.ON_START)
@@ -41,14 +45,20 @@ class ControllerLifecycleRegistryOwner(controller: Controller) : Controller.Life
             }
 
             override fun preDestroyView(controller: Controller, view: View) {
-                lifecycleRegistry.handleLifecycleEvent(Event.ON_STOP)
+                if (isRetainView().not()) {
+                    lifecycleRegistry.handleLifecycleEvent(Event.ON_STOP)
+                }
             }
 
             override fun postDestroyView(controller: Controller) {
+                // Based on documentation
                 lifecycleRegistry.markState(State.CREATED)
             }
 
             override fun preDestroy(controller: Controller) {
+                if (isRetainView()) {
+                    lifecycleRegistry.handleLifecycleEvent(Event.ON_STOP)
+                }
                 lifecycleRegistry.handleLifecycleEvent(Event.ON_DESTROY)
             }
 

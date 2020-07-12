@@ -1,5 +1,6 @@
 package com.esafirm.sample.screen
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.LifecycleOwner
 import android.os.Parcelable
 import android.view.View
@@ -95,6 +96,7 @@ class SamplePresenter(private val tickingValueData: TickingValueData) : Presente
         it.copy(count = it.count + 1)
     }
 
+    @SuppressLint("CheckResult")
     fun asyncIncrement() {
         Single.timer(5, TimeUnit.SECONDS)
                 .doOnSubscribe { showProgress(true) }
@@ -112,6 +114,10 @@ open class SampleStateScreen : StatefulScreen<SampleState, SamplePresenter>() {
 
     override fun createView() = xml(R.layout.controller_stateful_sample)
     override fun createPresenter() = SamplePresenter(TickingValueData())
+
+    init {
+        retainViewMode = RetainViewMode.RETAIN_DETACH
+    }
 
     private fun renderPicker(presenter: SamplePresenter, state: SampleState) {
         txt_ticking.text = "${state.tickingValueCaption}${state.tickingValue}"
@@ -135,6 +141,10 @@ open class SampleStateScreen : StatefulScreen<SampleState, SamplePresenter>() {
         btn_subtract.setOnClickListener { presenter.decrement() }
         btn_add_async.setOnClickListener { presenter.asyncIncrement() }
         btn_add_sync.setOnClickListener { presenter.syncIncrement() }
+
+        btn_navigate.setOnClickListener {
+            router.pushTo(SimpleTextScreen())
+        }
 
         progress.setOnClickListener { presenter.triggerError() }
         progress.visibility = if (state.isLoading) View.VISIBLE else View.GONE
