@@ -25,6 +25,7 @@ abstract class Presenter<State> {
 
     protected abstract fun initialState(): State
 
+    @Synchronized
     fun setState(async: Boolean = true, mutator: StateMutator<State>) {
         if (async) {
             postAsyncValue(mutator)
@@ -37,18 +38,15 @@ abstract class Presenter<State> {
     private fun postAsyncValue(mutator: StateMutator<State>) {
         if (!alreadyListenInternalQueue) {
             alreadyListenInternalQueue = true
-            internalQueue.subscribeOn(Schedulers.from(executors))
-                    .observeOn(Schedulers.from(executors))
-                    .startWith(mutator)
-                    .map { it.invoke(stateSubject.value) }
-                    .subscribe { newState ->
-                        if (newState != stateSubject.value) {
-                            stateSubject.postValue(newState)
-                        }
+            internalQueue.observeOn(Schedulers.from(executors))
+                .map { it.invoke(stateSubject.value) }
+                .subscribe { newState ->
+                    if (newState != stateSubject.value) {
+                        stateSubject.postValue(newState)
                     }
-        } else {
-            internalQueue.onNext(mutator)
+                }
         }
+        internalQueue.onNext(mutator)
     }
 
     open fun bind(lifecycleOwner: LifecycleOwner) {

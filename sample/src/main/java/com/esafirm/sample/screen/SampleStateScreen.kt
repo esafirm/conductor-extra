@@ -66,8 +66,13 @@ class SamplePresenter(private val tickingValueData: TickingValueData) : Presente
     }
 
     override fun initPresenter() {
-        setState(async = true) {
+        setState {
+            Logger.log("LOADING: TRUE")
             it.copy(isLoading = true)
+        }
+        setState {
+            Logger.log("LOADING: FALSE")
+            it.copy(isLoading = false)
         }
     }
 
@@ -99,10 +104,10 @@ class SamplePresenter(private val tickingValueData: TickingValueData) : Presente
     @SuppressLint("CheckResult")
     fun asyncIncrement() {
         Single.timer(5, TimeUnit.SECONDS)
-                .doOnSubscribe { showProgress(true) }
-                .doFinally { showProgress(false) }
-                .doOnDispose { Logger.log("onDispose") }
-                .subscribe { _, _ -> increment() }
+            .doOnSubscribe { showProgress(true) }
+            .doFinally { showProgress(false) }
+            .doOnDispose { Logger.log("onDispose") }
+            .subscribe { _, _ -> increment() }
     }
 
     fun setTickingValueCaption(caption: String) = setState {

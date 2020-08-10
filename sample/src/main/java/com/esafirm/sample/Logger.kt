@@ -4,7 +4,7 @@ import android.util.Log
 
 object Logger {
 
-    const val TAG = "Conductor Extra"
+    private const val TAG = "Conductor Extra"
 
     fun log(message: String) {
         Log.d(TAG, message)
